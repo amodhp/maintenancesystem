@@ -1,23 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect, useState} from "react";
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Login from './Pages/Login/Login';
+import Users from './Pages/Users';
+import Navbar from './Components/Navbar/Navbar';
+import Dasboard from './Pages/Dashboard';
+import Assets from './Pages/Assets';
+
+const ProtectedRoute = ({children}) => {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  } , [token]);
+  return children;
+}
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (!token) {
+      setIsLoggedIn(false);
+    }
+  } , [token]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute><Navbar/></ProtectedRoute>}>
+          <Route path="/" element={<Dasboard/>} />
+          <Route path="/users" element={<Users/>} />
+          <Route path="/assets" element={<Assets/>} />
+        </Route>
+      </Routes>
     </div>
   );
 }

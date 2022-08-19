@@ -1,0 +1,50 @@
+.login-card{
+    background-color: rgba(248, 248, 248, 0.733) !important;
+    backdrop-filter: saturate(180%) blur(10px) !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    padding: 20px;
+    height: 325px;
+    border: 1px solid rgb(0, 0, 0) !important;
+    box-shadow: 10px 10px 10px rgba(255, 136, 0, 0.418) !important;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.login-background{
+   background-color: orange;
+   height: 50vh;
+   width: 100%;
+   margin-top: 50vh;
+}
+
+.login-logo img{
+    width: 100px;
+}
+
+.login-button{
+    background-color: rgb(255, 136, 0);
+    border: none;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.login-card-header{
+    font-weight: 400;
+    color: rgb(54, 54, 54);
+    margin-bottom: 10px;
+}
