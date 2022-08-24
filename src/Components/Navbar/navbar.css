@@ -1,16 +1,12 @@
 .nav-img{
     background-color: white;
     border-radius: 0.5rem;
-    padding: 0.2rem;
-    margin:0.5rem;
-    margin-right: 2rem;
     height: 2.5rem;
 }
 .nav-link{
     color: black;
     font-size: 1.5rem;
     text-decoration: none;
-    padding: 0.5rem;
 }
 .nav-link:hover{
     background-color: #ffffffa6;

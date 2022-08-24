@@ -51,8 +51,8 @@ const Login = () => {
       username: username,
       password: password
     }).then(res => {
-      console.log(res);
-      localStorage.setItem("token", res.data.token);
+      console.log(res.data.access_token);
+      localStorage.setItem("token", res.data.access_token);
       setLoading(false);
       navigate("/");
       

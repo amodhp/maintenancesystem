@@ -8,25 +8,25 @@ const Users = () => {
     const [users, setUsers] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("token");
     
-    const fetchUsers = (accessToken, admin) => {
-        axios.get(`${process.env.REACT_APP_API}/admin`, {
+    
+   const fetchUsers = () => {
+    setLoading(true);
+    axios.get(`${process.env.REACT_APP_API}/admin`, {
         headers: {
-            "access-token": `${accessToken}`,
-          },
-      })
-      .then((res) => {
-        setUsers(res.data);
+            "access-token": accessToken
+        }
+    }).then(res => {
+        setUsers(res.data.users);
         setLoading(false);
-        console.log(res.data);
-      }).catch((err) => {
+    }).catch(err => {
         setError(err.message);
         setLoading(false);
-      }
-        );
-
     }
+    );
+    }
+
     useEffect(() => {
         fetchUsers(accessToken, "admin");
     } , []);
@@ -34,7 +34,7 @@ const Users = () => {
     return (
         <div>
         <UsersHeader/>
-        <UsersTable/>
+        <UsersTable users={users} loading={loading}/>
         </div>
     );
 }
