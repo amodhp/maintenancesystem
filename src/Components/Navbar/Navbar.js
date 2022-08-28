@@ -121,7 +121,7 @@ export default function Navbar() {
     }
 
     return (
-        <Box sx={{ display: 'flex', marginTop:"3rem", marginLeft: "1rem"}}>
+        <Box sx={{ display: 'flex', marginTop:"5rem", marginLeft: "1rem"}}>
             <CssBaseline />
             <AppBar position="fixed" open={open} style={{height: "4rem"}}>
                 <Toolbar>
@@ -171,14 +171,14 @@ export default function Navbar() {
                     </Menu>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
+            <Drawer variant="permanent" open={open} >
+                <DrawerHeader >
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List>
+                <List >
                     <Link to="/" className='nav-link'>
                         <ListItem button>
                             <ListItemIcon>

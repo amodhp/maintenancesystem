@@ -1,4 +1,42 @@
 .users-header{
-    margin-left: 1rem;
-    margin-top: 1rem;
+    width: 90vw !important;
+    box-shadow: 0px 0px 5px #5f5f5f49;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.usersHeader-title{
+    font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #000000;
+}
+.user-table-header{
+    background-color: rgb(182, 182, 182) !important;
+    border-radius: 300px !important;
+}
+
+.user-table-body{
+    background-color: rgb(248, 248, 248) !important;
+}
+
+.add-user-button{
+  position: relative;
+    top: -50px;
+    text-align: end;
+}
+.search-user-input{
+    display: flex;
+    align-items: center;
+    margin-top: -1rem;
+}
+
+.search-user-input input{
+    width: 100%;
+    height: 1.5rem;
+}
+
+.search-user-input label{
+    font-size: 2rem;
+    margin-right: 1rem;
 }
