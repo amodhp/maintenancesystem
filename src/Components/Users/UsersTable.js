@@ -11,10 +11,10 @@ const UsersTable = (props) => {
         sx={{
           marginTop: "1rem",
           boxShadow:
-            "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
+            "rgba(0, 0, 0, 0.05) 0px 2px 4px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
         }}
       >
-        <Table sx={{minWidth: "60vw"}}>
+        <Table sx={{minWidth: "50vw"}}>
             <TableHead className="user-table-header" >
                 <TableRow >
                     <TableCell sx={{fontSize: "1rem"}}>Name</TableCell>

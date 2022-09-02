@@ -25,6 +25,10 @@ const Users = () => {
     }).catch(err => {
         setError(err.message);
         setLoading(false);
+       if(err.response.status === 401) {
+           localStorage.removeItem("token");
+           window.location.href = "/login";
+       }
     }
     );
     }

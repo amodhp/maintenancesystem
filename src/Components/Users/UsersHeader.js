@@ -1,8 +1,8 @@
 import { Add, Search } from "@mui/icons-material";
 import { Button, IconButton, InputAdornment, TextField, ThemeProvider, Typography } from "@mui/material";
-//import create theme
 import { createTheme } from '@mui/material/styles';
 import React from "react";
+import AddUser from "./AddUser";
 
 const headerTheme = createTheme({
     palette: {
@@ -37,9 +37,7 @@ const UsersHeader = (props) => {
         <ThemeProvider theme={headerTheme}>
         <div  className="users-header">
         <Typography variant="h4" className="usersHeader-title">Users</Typography>
-        <div className="add-user-button">
-        <Button variant="contained" sx={{backgroundColor: "#018aed", textAlign: "center", fontSize:"1rem", margin: "auto"}}><Add/>Users</Button>
-        </div>
+        <div className="add-user-button"><AddUser fetchUsers={fetchUsers}/></div>
         <div className="search-user-input">
         <label style={{fontSize: "1rem", fontWeight:"600"}}>Search:</label>
             <TextField variant="outlined" 

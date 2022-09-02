@@ -1,5 +1,5 @@
 .users-header{
-    width: 90vw !important;
+    min-width: 90vw !important;
     box-shadow: 0px 0px 5px #5f5f5f49;
     padding: 20px;
     border-radius: 5px;
@@ -12,7 +12,7 @@
     color: #000000;
 }
 .user-table-header{
-    background-color: rgb(182, 182, 182) !important;
+    background-color: rgb(11, 158, 255) !important;
     border-radius: 300px !important;
 }
 
@@ -39,4 +39,7 @@
 .search-user-input label{
     font-size: 2rem;
     margin-right: 1rem;
+}
+.add-user-form label{
+    font-size: 1.3rem !important;
 }
