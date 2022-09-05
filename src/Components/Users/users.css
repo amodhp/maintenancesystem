@@ -1,8 +1,8 @@
 .users-header{
     min-width: 90vw !important;
-    box-shadow: 0px 0px 5px #5f5f5f49;
+    box-shadow: 0px 0px 50px 5px #2e2e2e6c;
     padding: 20px;
-    border-radius: 5px;
+    background-color: #fff;
 }
 
 .usersHeader-title{
@@ -12,12 +12,12 @@
     color: #000000;
 }
 .user-table-header{
-    background-color: rgb(11, 158, 255) !important;
-    border-radius: 300px !important;
+    background-color: #3c95b3 !important;
 }
 
 .user-table-body{
-    background-color: rgb(248, 248, 248) !important;
+    background-color: rgb(255, 255, 255) !important;
+    border-radius: 20px !important;
 }
 
 .add-user-button{
@@ -42,4 +42,10 @@
 }
 .add-user-form label{
     font-size: 1.3rem !important;
+}
+
+.user-table{
+    margin-top: 1rem;
+    border-radius: 0.5rem !important;
+    border: 3px solid #3c95b3 !important;
 }

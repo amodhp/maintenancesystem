@@ -4,7 +4,7 @@
     height: 2.5rem;
 }
 .nav-link{
-    color: black;
+    color: rgb(255, 255, 255);
     font-size: 1.5rem;
     text-decoration: none;
 }
@@ -16,4 +16,8 @@
 .current-page-nav{
     color: #00bcd4 !important;
     text-decoration: underline !important;
+}
+.MuiDrawer-paper{
+    background-color: #272727 !important;
+    color: white !important;
 }

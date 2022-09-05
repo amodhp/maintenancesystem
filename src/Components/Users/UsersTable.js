@@ -6,16 +6,14 @@ const UsersTable = (props) => {
     const { users, loading } = props;
     
     return (
-        <div style={{marginTop: "20px"}}>
+        <div style={{marginTop: "20px", borderRadius: "20px"}}>
         <Paper
-        sx={{
-          marginTop: "1rem",
-          boxShadow:
-            "rgba(0, 0, 0, 0.05) 0px 2px 4px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
-        }}
+        elevation={4}
+        style={{ borderRadius: "20px"}}
       >
-        <Table sx={{minWidth: "50vw"}}>
-            <TableHead className="user-table-header" >
+        <Table sx={{minWidth: "50vw"}}
+        >
+        <TableHead className="user-table-header"  style={{borderRadius: "20px"}}>
                 <TableRow >
                     <TableCell sx={{fontSize: "1rem"}}>Name</TableCell>
                     <TableCell sx={{fontSize: "1rem"}}>Role</TableCell>

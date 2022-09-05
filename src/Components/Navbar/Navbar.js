@@ -22,7 +22,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { AccountCircle, Category, Dashboard, Group } from '@mui/icons-material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./navbar.css";
-import { Menu, MenuItem } from '@mui/material';
+import { makeStyles, Menu, MenuItem } from '@mui/material';
 import logo from "./logo.png";
 
 
@@ -171,18 +171,18 @@ export default function Navbar() {
                     </Menu>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open} >
-                <DrawerHeader >
+            <Drawer variant="permanent" open={open} className="drawer">
+                <DrawerHeader  >
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: "#fff"}}/> : <ChevronLeftIcon sx={{color: "#fff"}}/>}
                     </IconButton>
                 </DrawerHeader>
-                <Divider />
+                <Divider sx={{backgroundColor: "#fff"}}/>
                 <List >
                     <Link to="/" className='nav-link'>
                         <ListItem button>
                             <ListItemIcon>
-                                <Dashboard style={{color:"black"}}/>
+                                <Dashboard style={{color:"#fff"}}/>
                             </ListItemIcon>
                             <ListItemText primary="Dashboard" />
                         </ListItem>
@@ -190,7 +190,7 @@ export default function Navbar() {
                     <Link to="/users" className='nav-link'>
                         <ListItem button>
                             <ListItemIcon>
-                                <Group style={{color:"black"}}/>
+                                <Group style={{color:"#fff"}}/>
                             </ListItemIcon>
                             <ListItemText primary="Users" />
                         </ListItem>
@@ -198,13 +198,13 @@ export default function Navbar() {
                     <Link to="/assets" className='nav-link'>
                         <ListItem button>
                             <ListItemIcon>
-                            <Category style={{color:"black"}}/>
+                            <Category style={{color:"#fff"}}/>
                             </ListItemIcon>
                             <ListItemText primary="Assets" />
                         </ListItem>
                     </Link>
                 </List>
-                <Divider />
+                <Divider sx={{backgroundColor: "#fff"}}/>
             </Drawer>
             <Outlet />
         </Box>
