@@ -19,7 +19,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { AccountCircle, Category, Dashboard, Group } from '@mui/icons-material';
+import { AccountCircle, Category, ConfirmationNumber, Dashboard, Group, LibraryAdd } from '@mui/icons-material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./navbar.css";
 import { createTheme, makeStyles, Menu, MenuItem } from '@mui/material';
@@ -211,6 +211,22 @@ export default function Navbar() {
                             <Category/>
                             </ListItemIcon>
                             <ListItemText primary="Assets" />
+                        </ListItem>
+                    </Link>
+                    <Link to="/tickets" className='nav-link'>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ConfirmationNumber/>
+                            </ListItemIcon>
+                            <ListItemText primary="Tickets" />
+                        </ListItem>
+                    </Link>
+                    <Link to="/tickets/add" className='nav-link'>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <LibraryAdd/>
+                            </ListItemIcon>
+                            <ListItemText primary="Add Ticket" />
                         </ListItem>
                     </Link>
                 </List>
