@@ -8,18 +8,18 @@ const UsersTable = (props) => {
     return (
         <div style={{marginTop: "20px", borderRadius: "20px"}}>
         <Paper
-        elevation={4}
+        elevation={0}
         style={{ borderRadius: "20px"}}
       >
         <Table sx={{minWidth: "50vw"}}
         >
         <TableHead className="user-table-header"  style={{borderRadius: "20px"}}>
                 <TableRow >
-                    <TableCell sx={{fontSize: "1rem"}}>Name</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Role</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Phone Number</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Email</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Action</TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="user-table-header">Name</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="user-table-header"> Role</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="user-table-header">Phone Number</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="user-table-header">Email</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="user-table-header">Action</span></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody className="user-table-body">

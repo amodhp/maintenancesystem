@@ -14,10 +14,8 @@ import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { Add } from '@mui/icons-material';
 import { MenuItem, OutlinedInput, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material';
-import { ThemeContext, ThemeProvider } from '@emotion/react';
-import theme from '../../theme';
 
-function AddUserBody(props) {
+function AddAssetBody(props) {
     const { onClose, open, fetchUsers } = props;
     const [role, setRole] =  useState("");
     
@@ -116,7 +114,6 @@ function AddUserBody(props) {
                                 <label>Email: </label>
                             </TableCell>
                             <TableCell>
-
                                 <OutlinedInput placeholder="Email" size="small" />
                             </TableCell>
                         </TableRow>
@@ -136,12 +133,12 @@ function AddUserBody(props) {
     );
 }
 
-AddUserBody.propTypes = {
+AddAssetBody.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
 };
 
-export default function AddUser(props) {
+export default function AddAsset(props) {
     const { fetchUsers } = props;
     const [open, setOpen] = React.useState(false);
 
@@ -155,14 +152,14 @@ export default function AddUser(props) {
 
     return (
         <div>
-            <ThemeProvider theme={theme}>
-                <button onClick={handleClickOpen} className="add-button">Add User</button>
-            <AddUserBody
+            <button onClick={handleClickOpen} className="add-button">
+                Add Asset
+            </button>
+            <AddAssetBody
                 open={open}
                 onClose={handleClose}
                 fetchUsers={fetchUsers}
             />
-            </ThemeProvider>
         </div>
     );
 }

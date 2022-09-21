@@ -1,7 +1,7 @@
 import { Add, Search } from "@mui/icons-material";
 import { Button, IconButton, InputAdornment, TextField, ThemeProvider, Typography } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
-import React from "react";
+import React, {useState} from "react";
 import AddUser from "./AddUser";
 
 const headerTheme = createTheme({
@@ -18,10 +18,7 @@ const headerTheme = createTheme({
 
 const UsersHeader = (props) => {
     const{users, setUsers, searchedUsers, setSearchedUsers, fetchUsers} = props;
-    const [search, setSearch] = React.useState("");
-    const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState(null);
-    const accessToken = localStorage.getItem("token");
+    const [search, setSearch] = useState("");
     const AllUsers = users;
 
 
