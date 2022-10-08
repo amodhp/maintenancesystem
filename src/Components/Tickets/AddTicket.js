@@ -24,7 +24,7 @@ const AddTicket = () => {
                 <Table>
                    <TableHead>
                         <TableRow>
-                            <TableCell sx={{fontWeight: "600" , fontSize: "1.5rem"}}>Add Location</TableCell>
+                            <TableCell sx={{fontWeight: "600" , fontSize: "1.5rem"}}>Add Ticket</TableCell>
                             <TableCell align="right">
                                 <Button onClick={backgroundClick} sx={{color: "red"}}>X</Button>
                             </TableCell>
