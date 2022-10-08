@@ -15,10 +15,20 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 .ticket-search{
-    margin: 1rem;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.ticket-loading{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .ticket-list-container{
@@ -37,8 +47,6 @@
     cursor: pointer;
 }
 
-
-
 .ticket-details{
     height: 100%;
     width: 30%;
@@ -49,18 +57,6 @@
     flex-direction: column;
     justify-content: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

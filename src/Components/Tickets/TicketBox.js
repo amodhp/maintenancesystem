@@ -56,7 +56,7 @@ const TicketBox = (props) => {
 
             </div>
             <div>
-                <Outlet />
+                <TicketDetails />
             </div>
             
         </div>

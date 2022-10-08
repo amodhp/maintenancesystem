@@ -108,7 +108,7 @@ export default function Navbar() {
     const [open, setOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuState, setMenuState] = useState(false);
- const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -131,9 +131,9 @@ export default function Navbar() {
     }
 
     return (
-        <Box sx={{ display: 'flex', marginTop:"5rem", marginLeft: "1rem"}}>
+        <Box sx={{ display: 'flex', marginTop: "5rem", marginLeft: "1rem" }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} style={{height: "4rem"}}>
+            <AppBar position="fixed" open={open} style={{ height: "4rem" }}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -147,7 +147,7 @@ export default function Navbar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img src={logo} alt="logo" className="nav-img"/>
+                    <img src={logo} alt="logo" className="nav-img" />
                     <IconButton
                         color="inherit"
                         aria-label="menu"
@@ -176,70 +176,93 @@ export default function Navbar() {
                         onClose={handleClose}
 
                     >
-                        <MenuItem onClick={() => {}}>Profile</MenuItem>
+                        <MenuItem onClick={() => { }}>Profile</MenuItem>
                         <MenuItem onClick={handleLogout}>Log out</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>
             <ThemeProvider theme={NavTheme}>
-            <Drawer variant="permanent" open={open} className="drawer">
-                <DrawerHeader  >
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <List >
-                    <Link to="/" className='nav-link'>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <Dashboard/>
-                            </ListItemIcon>
-                            <ListItemText primary="Dashboard" />
-                        </ListItem>
-                    </Link>
-                    <Link to="/users" className='nav-link'>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <Group/>
-                            </ListItemIcon>
-                            <ListItemText primary="Users" />
-                        </ListItem>
-                    </Link> 
-                    <Link to="/assets" className='nav-link'>
-                        <ListItem button>
-                            <ListItemIcon>
-                            <Category/>
-                            </ListItemIcon>
-                            <ListItemText primary="Assets" />
-                        </ListItem>
-                    </Link>
-                    <Link to="/tickets" className='nav-link'>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <ConfirmationNumber/>
-                            </ListItemIcon>
-                            <ListItemText primary="Tickets" />
-                        </ListItem>
-                    </Link>
-                    <Link to="/tickets/add" className='nav-link'>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <LibraryAdd/>
-                            </ListItemIcon>
-                            <ListItemText primary="Add Ticket" />
-                        </ListItem>
-                    </Link>
-                    <Link to="/add-location" className='nav-link'>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <AddLocationAlt />
-                            </ListItemIcon>
-                            <ListItemText primary="Add Location" />
-                        </ListItem>
-                    </Link> 
-                </List>
-                <Divider sx={{backgroundColor: "#fff"}}/>
-            </Drawer>
+                <Drawer variant="permanent" open={open} className="drawer">
+                    <DrawerHeader  >
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        </IconButton>
+                    </DrawerHeader>
+                    <List >
+                    <h3
+                style={{
+                  ...(!open && { display: "none" }),
+                  marginTop: "0",
+                  marginBottom: "0",
+                  marginLeft: "0.8rem",
+                }}
+              >
+                Admin Panel
+              </h3>
+                        <Link to="/" className='nav-link'>
+                            <ListItem button  style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <ListItemIcon>
+                                    <Dashboard />
+                                </ListItemIcon>
+                                <ListItemText primary="Dashboard" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/users" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <ListItemIcon>
+                                    <Group />
+                                </ListItemIcon>
+                                <ListItemText primary="Users" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/assets" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <ListItemIcon>
+                                    <Category />
+                                </ListItemIcon>
+                                <ListItemText primary="Assets" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/tickets" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <ListItemIcon>
+                                    <ConfirmationNumber />
+                                </ListItemIcon>
+                                <ListItemText primary="Tickets" />
+                            </ListItem>
+                        </Link>
+                    </List>
+                    <Divider />
+                    <List>
+                        <h3
+                            style={{
+                                ...(!open && { display: "none" }),
+                                marginTop: "0",
+                                marginBottom: "0",
+                                marginLeft: "0.8rem",
+                            }}
+                        >
+                            Add
+                        </h3>
+                        <Link to="/tickets/add" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <ListItemIcon>
+                                    <LibraryAdd />
+                                </ListItemIcon>
+                                <ListItemText primary="Add Ticket" />
+                            </ListItem>
+                        </Link>
+                        <Link to="/add-location" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <ListItemIcon>
+                                    <AddLocationAlt />
+                                </ListItemIcon>
+                                <ListItemText primary="Add Location" />
+                            </ListItem>
+                        </Link>
+                    </List>
+                    <Divider sx={{ backgroundColor: "#fff" }} />
+                </Drawer>
             </ThemeProvider>
             <Outlet />
         </Box>

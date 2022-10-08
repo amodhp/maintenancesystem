@@ -17,11 +17,23 @@ import { MenuItem, OutlinedInput, Select, Table, TableBody, TableCell, TableHead
 
 function AddAssetBody(props) {
     const { onClose, open, fetchUsers } = props;
-    const [role, setRole] =  useState("");
+    // {
+    //     "asset_name":"Cooler",
+    //     "location":"Area 2",
+    //     "asset_category":"Hardware",
+    //     "asset_component_list":["filter","blinders"]
+    
+    // }
+    const [asset_name, setAssetName] = useState("");
+    const [location, setLocation] = useState("");
+    const [asset_category, setAssetCategory] = useState("");
+    const [asset_component_list, setAssetComponentList] = useState("");
+    const [asset_component_list_array, setAssetComponentListArray] = useState([]);
+    const [asset_component_list_string, setAssetComponentListString] = useState("");
+
     
 
     const handleClose = () => {
-        // fetchUsers();
         onClose();
     }
 
@@ -29,53 +41,19 @@ function AddAssetBody(props) {
         onClose(value);
     };
 
-    const handleRoleChange = (e) => {
-        setRole(e.target.value);
-    }
-
-    const preDefinedRoles = [
-        {
-            value: 'admin',
-            label: 'Admin'
-        },
-        {
-            value: 'department-head',
-            label: 'Department Head'
-        },
-        {
-            value: 'design',
-            label: 'Design'
-        },
-        {
-            value: 'management',
-            label: 'Management'
-        },
-        {
-            value: 'requestee',
-            label: 'Requestee'
-        },
-        {
-            value: 'technician-external',
-            label: 'Technician External'
-        },
-        {
-            value: 'technician-internal',
-            label: 'Technician Internal'
-        }
-    ];
-
+    
     return (
         <Dialog onClose={handleClose} open={open}>
             <form className="add-user-form">
                 <Table>
                    <TableHead>
                         <TableRow>
-                            <TableCell sx={{fontWeight: "600" , fontSize: "1.5rem"}} colSpan={2}>Add New User</TableCell>
+                            <TableCell sx={{fontWeight: "600" , fontSize: "1.5rem"}} colSpan={2}>Add New Asset</TableCell>
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
-                        <TableRow>
+                        {/* <TableRow>
                             <TableCell>
                                 <label>Name: </label>
                             </TableCell>
@@ -116,15 +94,69 @@ function AddAssetBody(props) {
                             <TableCell>
                                 <OutlinedInput placeholder="Email" size="small" />
                             </TableCell>
+                        </TableRow> */}
+                        <TableRow>
+                            <TableCell>
+                                <label>Asset Name: </label>
+                            </TableCell>
+                            <TableCell>
+                                <OutlinedInput placeholder="Asset Name" size="small" onChange={(e) => setAssetName(e.target.value)} />
+                            </TableCell>
                         </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <label>Location: </label>
+                            </TableCell>
+                            <TableCell>
+                                <OutlinedInput placeholder="Location" size="small" onChange={(e) => setLocation(e.target.value)} />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <label>Asset Category: </label>
+                            </TableCell>
+                            <TableCell>
+                                <OutlinedInput placeholder="Asset Category" size="small" onChange={(e) => setAssetCategory(e.target.value)} />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <label>Asset Component List: </label>
+                            </TableCell>
+                            <TableCell>
+                                <OutlinedInput placeholder="Asset Component List" size="small" onChange={(e) => setAssetComponentList(e.target.value)} />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <label>Asset Component List Array: </label>
+                            </TableCell>
+                            <TableCell>
+                                <OutlinedInput placeholder="Asset Component List Array" size="small" onChange={(e) => setAssetComponentListArray(e.target.value)} />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <label>Asset Component List String: </label>
+                            </TableCell>
+                            <TableCell>
+                                <OutlinedInput placeholder="Asset Component List String" size="small" onChange={(e) => setAssetComponentListString(e.target.value)} />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell colSpan={2}>
+                                <Button variant="contained">Add Asset</Button>
+                            </TableCell>
+                        </TableRow>
+
                     </TableBody>
                 </Table>
 
-        <div style={{textAlign: "center", paddingBottom:"20px", paddingTop:"10px"}}>
+        {/* <div style={{textAlign: "center", paddingBottom:"20px", paddingTop:"10px"}}>
             <Button variant="contained" sx={{backgroundColor: "#189ab4", width:"80%"}} color="primary" onClick={handleClose}>
                 Add
             </Button>
-        </div>
+        </div> */}
 
 
 

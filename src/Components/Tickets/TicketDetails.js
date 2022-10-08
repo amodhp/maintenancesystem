@@ -12,7 +12,7 @@ const TicketDetails = (props) => {
 
     return (
         <div className="ticket-details">
-               <div>aa</div>
+              
         </div>
     )
 }
