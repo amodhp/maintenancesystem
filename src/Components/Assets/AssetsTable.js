@@ -12,10 +12,10 @@ const AssetsTable = (props) => {
         >
             <TableHead className="user-table-header"  style={{borderRadius: "20px"}}>
                 <TableRow >
-                    <TableCell sx={{fontSize: "1rem"}}>Name</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Category</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Loaction</TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}>Action</TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Name</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Category</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Loaction</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Action</span></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody className="asset-table-body">

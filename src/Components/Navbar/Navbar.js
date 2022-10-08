@@ -19,7 +19,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { AccountCircle, Category, ConfirmationNumber, Dashboard, Group, LibraryAdd } from '@mui/icons-material';
+import { AccountCircle, AddLocation, AddLocationAlt, Category, ConfirmationNumber, Dashboard, Group, LibraryAdd } from '@mui/icons-material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./navbar.css";
 import { createTheme, makeStyles, Menu, MenuItem } from '@mui/material';
@@ -229,6 +229,14 @@ export default function Navbar() {
                             <ListItemText primary="Add Ticket" />
                         </ListItem>
                     </Link>
+                    <Link to="/add-location" className='nav-link'>
+                        <ListItem button>
+                            <ListItemIcon>
+                                <AddLocationAlt />
+                            </ListItemIcon>
+                            <ListItemText primary="Add Location" />
+                        </ListItem>
+                    </Link> 
                 </List>
                 <Divider sx={{backgroundColor: "#fff"}}/>
             </Drawer>

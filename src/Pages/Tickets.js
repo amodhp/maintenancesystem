@@ -20,7 +20,6 @@ const Tickets = () => {
             }
         }).then(res => {
             setTickets(res.data.tickets);
-            console.log(res.data.tickets);
             setLoading(false);
         }).catch(err => {
             setError(err.message);
@@ -38,7 +37,7 @@ const Tickets = () => {
 
     return (
         <div className="tickets">
-            <TicketBox />
+            <TicketBox tickets={tickets} loading={loading}/>
             <Outlet/>
         </div>
     );

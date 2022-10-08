@@ -8,6 +8,8 @@ import Dasboard from './Pages/Dashboard';
 import Assets from './Pages/Assets';
 import Tickets from './Pages/Tickets';
 import AddTicket from './Components/Tickets/AddTicket';
+import TicketDetails from './Components/Tickets/TicketDetails';
+import AddLocation from './Components/Location/AddLoction';
 
 const ProtectedRoute = ({children}) => {
   const token = localStorage.getItem("token");
@@ -38,8 +40,11 @@ function App() {
           <Route path="/users" element={<Users/>} />
           <Route path="/assets" element={<Assets/>} />
           <Route path="/tickets" element={<Tickets/>}>
-            <Route path="/tickets/add" element={<AddTicket/>} />
+              <Route path="/tickets/add" element={<AddTicket/>} />
+              <Route path="/tickets/:id" element={<TicketDetails/>} />
           </Route>
+          <Route path="/add-location" element={<AddLocation/>} />
+
         </Route>
       </Routes>
     </div>
