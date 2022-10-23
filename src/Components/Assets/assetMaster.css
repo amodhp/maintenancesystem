@@ -1,0 +1,11 @@
+.asset-master-table-head{
+    background-color: #000000 !important;
+    min-width: 50vh;
+    font-weight: bold;
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+}
+.asset-master-table-header{
+    color: #ffffff;
+    font-weight: bold;
+}

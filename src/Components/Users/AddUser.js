@@ -16,12 +16,11 @@ import { Add } from '@mui/icons-material';
 import { MenuItem, OutlinedInput, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material';
 import { ThemeContext, ThemeProvider } from '@emotion/react';
 import theme from '../../theme';
+import axios from 'axios';
 
 function AddUserBody(props) {
-    const { onClose, open, fetchUsers } = props;
-    const [role, setRole] =  useState("");
+    const { onClose, open, fetchUsers, name, role, phone, email, setName, setRole, setPhone, setEmail, submit } = props;
     
-
     const handleClose = () => {
         // fetchUsers();
         onClose();
@@ -34,6 +33,16 @@ function AddUserBody(props) {
     const handleRoleChange = (e) => {
         setRole(e.target.value);
     }
+    const handleNameChange = (e) => {
+        setName(e.target.value);
+    }
+    const handlePhoneChange = (e) => {
+        setPhone(e.target.value);
+    }
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+
 
     const preDefinedRoles = [
         {
@@ -82,7 +91,7 @@ function AddUserBody(props) {
                                 <label>Name: </label>
                             </TableCell>
                             <TableCell>
-                                <OutlinedInput placeholder="First Name" size="small" />
+                                <OutlinedInput placeholder="First Name" size="small" value={name} onChange={handleNameChange} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -107,7 +116,7 @@ function AddUserBody(props) {
                             </TableCell>
                             <TableCell>
 
-                                <OutlinedInput placeholder="Phone" size="small" />
+                                <OutlinedInput placeholder="Phone" size="small"  value={phone} onChange={handlePhoneChange} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -117,14 +126,14 @@ function AddUserBody(props) {
                             </TableCell>
                             <TableCell>
 
-                                <OutlinedInput placeholder="Email" size="small" />
+                                <OutlinedInput placeholder="Email" size="small" value={email} onChange={handleEmailChange} />
                             </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
 
         <div style={{textAlign: "center", paddingBottom:"20px", paddingTop:"10px"}}>
-            <Button variant="contained" sx={{backgroundColor: "#189ab4", width:"80%"}} color="primary" onClick={handleClose}>
+            <Button variant="contained" sx={{backgroundColor: "#189ab4", width:"80%"}} color="primary" onClick={submit}>
                 Add
             </Button>
         </div>
@@ -143,7 +152,13 @@ AddUserBody.propTypes = {
 
 export default function AddUser(props) {
     const { fetchUsers } = props;
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [name, setName] = useState("");
+    const [role, setRole] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    
+    const accessToken = localStorage.getItem('token');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -152,6 +167,46 @@ export default function AddUser(props) {
     const handleClose = (value) => {
         setOpen(false);
     };
+    
+    const AddUserSubmit = () => {
+        console.log("aa");
+        axios({
+            method: "post",
+      
+            url: `${process.env.REACT_APP_API}/admin/add_user`,
+      
+            data: {
+              user_id: Math.floor(Math.random() * 1000000),
+              username: name,
+              password: "1234",
+              first_name: name,
+              middle_name: "",
+              last_name: "",
+              mobile_phone: phone,
+              email_id: email,
+              company_name: "selec",
+              role: role,
+              note: "",
+              interfaces: "",
+              skills: "skills",
+            },
+            headers: {
+              "access-token": `${accessToken}`,
+            },
+          })
+            .then((res) => {
+              console.log(res);
+              setOpen(false);
+                fetchUsers();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+
+
+
+
 
     return (
         <div>
@@ -161,6 +216,16 @@ export default function AddUser(props) {
                 open={open}
                 onClose={handleClose}
                 fetchUsers={fetchUsers}
+                name={name}
+                role={role}
+                phone={phone}
+                email={email}
+                setName={setName}
+                setRole={setRole}
+                setPhone={setPhone}
+                setEmail={setEmail}
+                submit={AddUserSubmit}
+
             />
             </ThemeProvider>
         </div>
