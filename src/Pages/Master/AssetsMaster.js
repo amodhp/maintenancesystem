@@ -14,6 +14,8 @@ const AssetsMaster = () => {
     const [addAssetCatOrSubCat, setAddAssetCatOrSubCat] = useState("cat");
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [assetCategories, setAssetCategories] = useState([]);
+    const [editAssetCat, setEditAssetCat] = useState("");
+
 
     // function to handle pagination
     const handleChangePage = (event, newPage) => {
@@ -26,8 +28,7 @@ const AssetsMaster = () => {
         setPage(0);
     };
 
-
-
+   
     const fecthAssetsCategories = () => {
         axios.get(`${process.env.REACT_APP_API}/admin/assetCategory`, {
             headers: {
@@ -44,6 +45,10 @@ const AssetsMaster = () => {
     useEffect(() => {
         fecthAssetsCategories();
     }, []);
+    const handleAssetCatEdit = (id) => {
+        setEditAssetCat(id);
+        setAddAssetCatOrSubCat("subcat");
+    }
 
 
     return (
@@ -53,8 +58,14 @@ const AssetsMaster = () => {
                 <Table>
                     <TableBody>
                         <TableRow>
-                            <TableCell sx={{width: "50%", height: "100%"}}>
-                               <AddAssetMaster assetCategories={assetCategories} />
+                            <TableCell sx={{width: "50%", verticalAlign: "top"}}> 
+                               <AddAssetMaster 
+                                assetCategories={assetCategories} 
+                                editAssetCat={editAssetCat}
+                                addAssetCatOrSubCat={addAssetCatOrSubCat}
+                                setAddAssetCatOrSubCat={setAddAssetCatOrSubCat}
+                                setEditAssetCat={setEditAssetCat}
+                            />
                             </TableCell>
                             <TableCell>
                     <Table sx={{border: "2px solid black"}}>
@@ -118,7 +129,7 @@ const AssetsMaster = () => {
                                     </ul>
                                 </TableCell>
                                 <TableCell>
-                                    <Button variant="contained" size="small" sx={{margin:"5px"}}>Edit</Button>
+                                    <Button variant="contained" size="small" sx={{margin:"5px"}} onClick={() => handleAssetCatEdit(assetCategory._id)}>Edit</Button>
                                     <Button variant="contained" color="secondary" size="small" sx={{margin:"5px"}}>Delete</Button>
                                 </TableCell>
                             </TableRow>
