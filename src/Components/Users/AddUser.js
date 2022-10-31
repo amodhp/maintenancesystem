@@ -19,7 +19,7 @@ import theme from '../../theme';
 import axios from 'axios';
 
 function AddUserBody(props) {
-    const { onClose, open, fetchUsers, name, role, phone, email, setName, setRole, setPhone, setEmail, submit } = props;
+    const { onClose, open, fetchUsers, name, role, phone, email, setName, setRole, setPhone, setEmail, submit, username, setUsername } = props;
     
     const handleClose = () => {
         // fetchUsers();
@@ -42,6 +42,10 @@ function AddUserBody(props) {
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     }
+    const handleUsernameChange = (e) => {
+        setUsername(e.target.value);
+    }
+
 
 
     const preDefinedRoles = [
@@ -86,6 +90,14 @@ function AddUserBody(props) {
                     </TableHead>
 
                     <TableBody>
+                        <TableRow>
+                        <TableCell>
+                            <label>Username</label>
+                        </TableCell>
+                        <TableCell>
+                            <OutlinedInput placeholder='Username' size="small" value={username} onChange={handleUsernameChange} />
+                        </TableCell>
+                        </TableRow>
                         <TableRow>
                             <TableCell>
                                 <label>Name: </label>
@@ -153,6 +165,7 @@ AddUserBody.propTypes = {
 export default function AddUser(props) {
     const { fetchUsers } = props;
     const [open, setOpen] = useState(false);
+    const [username, setUsername] = useState('');
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
     const [phone, setPhone] = useState("");
@@ -169,7 +182,7 @@ export default function AddUser(props) {
     };
     
     const AddUserSubmit = () => {
-        console.log("aa");
+        console.log("aass");
         axios({
             method: "post",
       
@@ -177,7 +190,7 @@ export default function AddUser(props) {
       
             data: {
               user_id: Math.floor(Math.random() * 1000000),
-              username: name,
+              username: username,
               password: "1234",
               first_name: name,
               middle_name: "",
@@ -188,7 +201,6 @@ export default function AddUser(props) {
               role: role,
               note: "",
               interfaces: "",
-              skills: "skills",
             },
             headers: {
               "access-token": `${accessToken}`,
@@ -216,10 +228,12 @@ export default function AddUser(props) {
                 open={open}
                 onClose={handleClose}
                 fetchUsers={fetchUsers}
+                username={username}
                 name={name}
                 role={role}
                 phone={phone}
                 email={email}
+                setUsername={setUsername}
                 setName={setName}
                 setRole={setRole}
                 setPhone={setPhone}
