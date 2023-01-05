@@ -1,16 +1,37 @@
 import { Button, Dialog, MenuItem, OutlinedInput, Select, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import axios from "axios";
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const AddTicket = () => {
     const [open, setOpen] = React.useState(true);
+    const accessToken = localStorage.getItem("token");
     // {
     //     "subject":"dummy ticket 2",
     //     "description":"this is a test message for dummy ticket 2"
     // }
     const [subject, setSubject] = React.useState("");
     const [description, setDescription] = React.useState("");
+    const AddTicketSubmit = () => {
+        //add ticket with accesstoken
+        axios.post(`${process.env.REACT_APP_API}/admin/add_ticket`, {
+            subject: subject,
+            description: description
+        }, {
+            headers: {
+                "access-token": accessToken
+            }
+        }).then(res => {
+            console.log(res);
+        }
+        ).catch(err => {
+            console.log(err);
+        }
+        );
+
+    }
+
 
     const navigate = useNavigate();
     const backgroundClick = () => {
@@ -62,7 +83,7 @@ const AddTicket = () => {
                         </TableRow>
                         <TableRow>
                             <TableCell>
-                                <Button variant="contained" sx={{width: "100%"}}>Add</Button>
+                                <Button variant="contained" sx={{width: "100%"}} onClick={AddTicketSubmit}>Add</Button>
                             </TableCell>
                             <TableCell>
                                 <Button variant="contained" sx={{width: "100%"}}>Cancel</Button>

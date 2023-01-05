@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createTheme } from '@mui/material/styles';
-import { IconButton, InputAdornment, TextField, Typography } from "@mui/material";
+import { IconButton, InputAdornment, Paper, TextField, Typography } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { ThemeProvider } from "@emotion/react";
 import "./assets.css";
@@ -32,6 +32,7 @@ const AssetsHeader = (props) => {
     return (
         <ThemeProvider theme={headerTheme}>
         <div className="assets-header">
+            <Paper className="assets-header-paper" sx={{width: "100%", backgroundColor: "inherit"}} elevation={0} width="100%">
             <Typography variant="h4" className="assetsHeader-title">Assets</Typography>
             <div className="add-asset-button"><AddAsset fetchAssets={fetchAssets}/></div>
             <div className="search-asset-input">
@@ -50,6 +51,7 @@ const AssetsHeader = (props) => {
                 )}}
                 />
             </div>
+            </Paper>
         </div>
         </ThemeProvider>
     );

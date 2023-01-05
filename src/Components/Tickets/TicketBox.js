@@ -15,7 +15,6 @@ const TicketBox = (props) => {
     const params = useParams();
     const navigate = useNavigate();
     
-    console.log(tickets)
     return (
         <div className="ticket-box">
             <div className='ticket-list'>
@@ -44,8 +43,7 @@ const TicketBox = (props) => {
                         <List>
                             {tickets.map((ticket) => (
                                 
-                                <ListItem key={ticket._id} button onClick={() => navigate(`/tickets/${ticket._id}`)} className="ticket-list-item" >
-                                  {console.log(ticket.subject)}
+                                <ListItem key={ticket._id} button onClick={() => navigate(`/tickets/${ticket._id}`)} className="ticket-list-item">
                                     <ListItemText primary={ticket.subject} secondary={ticket.subject} />
                                 </ListItem>
                             ))}

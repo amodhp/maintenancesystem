@@ -51,10 +51,8 @@ const Dasboard = () => {
                 setTicketCount(res.data.tickets.length);
                 setTicketCountLoading(false);
             }).catch(err => {
-                if(err.response.status === 401) {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                }
+                console.log(err);
+                setTicketCountLoading(false);
             });
         }
 
@@ -67,10 +65,7 @@ const Dasboard = () => {
                 setAssetCount(res.data.length);
                 setAssetCountLoading(false);
             }).catch(err => {
-                if(err.response.status === 401) {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                }
+                console.log(err)
             });
         }
 
@@ -83,10 +78,7 @@ const Dasboard = () => {
                 setLocationCount(res.data.locations.length);
                 setLocationCountLoading(false);
             }).catch(err => {
-                if(err.response.status === 401) {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                }
+                console.log(err)
             });
         }
 
@@ -99,10 +91,7 @@ const Dasboard = () => {
                 setOpenTicketCount(res.data.tickets.filter(ticket => ticket.status === "open").length);
                 setOpenTicketCountLoading(false);
             }).catch(err => {
-                if(err.response.status === 401) {
-                    localStorage.removeItem("token");
-                    navigate("/login");
-                }
+                console.log(err)
             });
         }
 

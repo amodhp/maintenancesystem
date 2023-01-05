@@ -10,6 +10,8 @@ import Tickets from './Pages/Tickets';
 import AddTicket from './Components/Tickets/AddTicket';
 import TicketDetails from './Components/Tickets/TicketDetails';
 import AddLocation from './Components/Location/AddLoction';
+import AssetsMaster from './Pages/Master/AssetsMaster';
+import MangementReport from './Pages/ManagementReport';
 
 const ProtectedRoute = ({children}) => {
   const token = localStorage.getItem("token");
@@ -39,11 +41,13 @@ function App() {
           <Route path="/" element={<Dasboard/>} />
           <Route path="/users" element={<Users/>} />
           <Route path="/assets" element={<Assets/>} />
+          <Route path="/assets-master" element={<AssetsMaster/>} />
           <Route path="/tickets" element={<Tickets/>}>
               <Route path="/tickets/add" element={<AddTicket/>} />
               <Route path="/tickets/:id" element={<TicketDetails/>} />
           </Route>
           <Route path="/add-location" element={<AddLocation/>} />
+          <Route path="/management-report" element={<MangementReport/>}/>
 
         </Route>
       </Routes>

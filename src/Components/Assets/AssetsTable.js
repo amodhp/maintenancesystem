@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, CircularProgress, Paper, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Button, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 
 
@@ -7,9 +7,8 @@ const AssetsTable = (props) => {
     const {assets, setAssets, searchedAssets, setSearchedAssets, fetchAssets, loading} = props;
     return (
        <div style={{marginTop: "20px", borderRadius: "20px"}}>
-        
-        <Table sx={{minWidth: "50vw"}}
-        >
+        <TableContainer sx={{width: "100%", borderRadius: "20px"}} component={Paper}>
+        <Table>
             <TableHead className="user-table-header"  style={{borderRadius: "20px"}}>
                 <TableRow >
                     <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Name</span></TableCell>
@@ -39,6 +38,7 @@ const AssetsTable = (props) => {
                 }
             </TableBody>
         </Table>
+        </TableContainer>
         
         </div>
     );

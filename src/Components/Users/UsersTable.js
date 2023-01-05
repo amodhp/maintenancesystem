@@ -1,5 +1,5 @@
 import { Edit } from "@mui/icons-material";
-import { Button, CircularProgress, Paper, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Button, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React from "react";
 
 const UsersTable = (props) => {
@@ -7,10 +7,7 @@ const UsersTable = (props) => {
     
     return (
         <div style={{marginTop: "20px", borderRadius: "20px"}}>
-        <Paper
-        elevation={0}
-        style={{ borderRadius: "20px"}}
-      >
+        <TableContainer sx={{width: "100%", borderRadius: "20px"}} component={Paper}>
         <Table sx={{minWidth: "50vw"}}
         >
         <TableHead className="user-table-header"  style={{borderRadius: "20px"}}>
@@ -43,10 +40,8 @@ const UsersTable = (props) => {
                )
                 }
             </TableBody>
-
-
         </Table>
-        </Paper>
+        </TableContainer>
         </div>
     );
 }

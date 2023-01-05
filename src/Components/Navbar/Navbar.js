@@ -19,11 +19,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 import { AccountCircle, AddLocation, AddLocationAlt, Category, ConfirmationNumber, Dashboard, Group, LibraryAdd } from '@mui/icons-material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import "./navbar.css";
-import { createTheme, makeStyles, Menu, MenuItem } from '@mui/material';
+import { createTheme, makeStyles, Menu, MenuItem, Tooltip } from '@mui/material';
 import logo from "./logo.png";
+import DnsIcon from '@mui/icons-material/Dns';
 import { ThemeProvider } from '@emotion/react';
 
 
@@ -109,10 +111,11 @@ export default function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuState, setMenuState] = useState(false);
     const navigate = useNavigate();
-
+    const role = localStorage.getItem("role");
     const handleDrawerOpen = () => {
         setOpen(true);
     };
+
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -189,45 +192,53 @@ export default function Navbar() {
                         </IconButton>
                     </DrawerHeader>
                     <List >
-                    <h3
-                style={{
-                  ...(!open && { display: "none" }),
-                  marginTop: "0",
-                  marginBottom: "0",
-                  marginLeft: "0.8rem",
-                }}
-              >
-                Admin Panel
-              </h3>
+                        <h3
+                            style={{
+                                ...(!open && { display: "none" }),
+                                marginTop: "0",
+                                marginBottom: "0",
+                                marginLeft: "0.8rem",
+                            }}
+                        >
+                            Admin Panel
+                        </h3>
                         <Link to="/" className='nav-link'>
-                            <ListItem button  style={{ paddingTop: "0", paddingBottom: "0" }}>
-                                <ListItemIcon>
-                                    <Dashboard />
-                                </ListItemIcon>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <Tooltip title="Dashboard" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <Dashboard />
+                                    </ListItemIcon>
+                                </Tooltip>
                                 <ListItemText primary="Dashboard" />
                             </ListItem>
                         </Link>
                         <Link to="/users" className='nav-link'>
                             <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
-                                <ListItemIcon>
-                                    <Group />
-                                </ListItemIcon>
+                                <Tooltip title="Users" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <Group />
+                                    </ListItemIcon>
+                                </Tooltip>
                                 <ListItemText primary="Users" />
                             </ListItem>
                         </Link>
                         <Link to="/assets" className='nav-link'>
                             <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
-                                <ListItemIcon>
-                                    <Category />
-                                </ListItemIcon>
+                                <Tooltip title="Assets" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <Category />
+                                    </ListItemIcon>
+                                </Tooltip>
                                 <ListItemText primary="Assets" />
                             </ListItem>
                         </Link>
                         <Link to="/tickets" className='nav-link'>
                             <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
-                                <ListItemIcon>
-                                    <ConfirmationNumber />
-                                </ListItemIcon>
+                                <Tooltip title="Tickets" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <ConfirmationNumber />
+                                    </ListItemIcon>
+                                </Tooltip>
                                 <ListItemText primary="Tickets" />
                             </ListItem>
                         </Link>
@@ -246,22 +257,70 @@ export default function Navbar() {
                         </h3>
                         <Link to="/tickets/add" className='nav-link'>
                             <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
-                                <ListItemIcon>
-                                    <LibraryAdd />
-                                </ListItemIcon>
+                                <Tooltip title="Add Ticket" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <LibraryAdd />
+                                    </ListItemIcon>
+                                </Tooltip>
                                 <ListItemText primary="Add Ticket" />
                             </ListItem>
                         </Link>
                         <Link to="/add-location" className='nav-link'>
                             <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
-                                <ListItemIcon>
-                                    <AddLocationAlt />
-                                </ListItemIcon>
+                                <Tooltip title="Add Location" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <AddLocationAlt />
+                                    </ListItemIcon>
+                                </Tooltip>
                                 <ListItemText primary="Add Location" />
                             </ListItem>
                         </Link>
                     </List>
-                    <Divider sx={{ backgroundColor: "#fff" }} />
+                    <Divider />
+                    <h3
+                        style={{
+                            ...(!open && { display: "none" }),
+                            marginTop: "0",
+                            marginBottom: "0",
+                            marginLeft: "0.8rem",
+                        }}
+                    >
+                        Masters
+                    </h3>
+                        <Link to="/assets-master" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <Tooltip title="Assets Master" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <DnsIcon />
+                                    </ListItemIcon>
+                                </Tooltip>
+                                <ListItemText primary="Assets Master" />
+                            </ListItem>
+                        </Link>
+                        
+
+                        <h3
+                        style={{
+                            ...(!open && { display: "none" }),
+                            marginTop: "0",
+                            marginBottom: "0",
+                            marginLeft: "0.8rem",
+                        }}
+                    >
+                        Masters
+                    </h3>
+                        <Link to="/management-report" className='nav-link'>
+                            <ListItem button style={{ paddingTop: "0", paddingBottom: "0" }}>
+                                <Tooltip title="Management Report" placement="right" arrow>
+                                    <ListItemIcon>
+                                        <SummarizeIcon/>
+                                    </ListItemIcon>
+                                </Tooltip>
+                                <ListItemText primary="Mangement Report" />
+                            </ListItem>
+                        </Link>
+                        
+
                 </Drawer>
             </ThemeProvider>
             <Outlet />
