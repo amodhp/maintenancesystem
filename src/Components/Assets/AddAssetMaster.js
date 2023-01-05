@@ -1,50 +1,75 @@
-import { Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import { Button, MenuItem, OutlinedInput, Paper, Select, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tabs } from '@mui/material';
+import { Box } from '@mui/system';
+import TabPanel from '@mui/lab/TabPanel';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+
 import React, { useState } from 'react';
 
 const AddAssetMaster = (props) => {
-    const {assetCategories}=props;
-    const [addAssetCatOrSubCat, setAddAssetCatOrSubCat] = useState("cat");
+    const { assetCategories, editAssetCat, addAssetCatOrSubCat, setAddAssetCatOrSubCat, setEditAssetCat } = props;
+    const [assetCat, setAssetCat] = useState('');
+    const [assetListCount, setAssetListCount] = useState(1);
+    const handleSelectAssetCat = (e) => {
+        setEditAssetCat(e.target.value);
+    }
+    const handleAssetListCount = (e) => {
+        if(e.target.value == "add"){
+            setAssetListCount(assetListCount + 1);
+        }else{
+            setAssetListCount(assetListCount - 1);
+        }
+    }
+
+    
 
     return (
-        <div style={{height: "100%"}}>
-            <TableContainer sx={{ width: "100%", height: "100%" }} >
-            <Table>
-                                      <TableHead>
-                                            <TableRow>
-                                                <TableCell>
-                                                <Button variant="contained" color="primary"
-                                                onClick={() => setAddAssetCatOrSubCat("cat")}
-                                                >Add Asset Category</Button>
-                                                <Button variant="contained" color="primary" 
-                                                onClick={() => setAddAssetCatOrSubCat("subcat")}
-                                                >Add Asset Sub Category</Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableHead>          
-                                        <TableBody>
-                                        {addAssetCatOrSubCat=="cat" ? (
-                                            <TableRow>
-                                                <TableCell>
-                                                    <input type="text" placeholder="Enter Asset Category" />
-                                                    <Button variant="contained" color="primary">Add</Button>
-                                                    </TableCell>
-                                                    </TableRow>
-                                                    ) : (
-                                                        <TableRow>
-                                                            <TableCell>
-                                                                <label>Select Asset Category</label>
-                                                                <Select size='small' sx={{width: "100%"}}>
-                                                                    {assetCategories.map((cat) => (
-                                                                        <MenuItem value={cat.id}>{cat.asset_category}</MenuItem>
-                                                                    ))}
-                                                                </Select>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    )}
+        <div>
+            <TabContext value={addAssetCatOrSubCat}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <TabList onChange={(e, v) => setAddAssetCatOrSubCat(v)} aria-label="lab API tabs example">
+                        <Tab label="Asset Category" value="cat" />
+                        <Tab label="Asset Sub Category" value="subcat" />
+                    </TabList>
+                </Box>
+                <TabPanel value="cat">
+                {/* {
+    "asset_category":"Electric Infra",
+    "asset_list":["mouse","projector"]
+} */}
+                    <label htmlFor="assetCat">Asset Category </label>
+                    <OutlinedInput id="assetCat" type="text" size='small' />
+                    <br></br>
+                    <br></br>
+                    <label htmlFor="assetSubCat">Asset Sub Category </label>
+                    <Button variant="contained" onClick={handleAssetListCount} value="add">+</Button>
+                    {assetListCount > 1 ? <Button variant="contained" onClick={handleAssetListCount} value="remove">-</Button> : null}
+                    <br></br>
+                    <br></br>
 
-                                        </TableBody>                              
-                               </Table>
-                               </TableContainer>
+                    {
+                        [...Array(assetListCount)].map((e, i) => {
+                            return (
+                                <div key={i}>
+                                <OutlinedInput id="assetSubCat" type="text" size='small' />
+                                <br></br>
+                                </div>
+                            )
+                        }
+                        )
+                    }
+                </TabPanel>
+                <TabPanel value="subcat">
+                <label>Select Asset Category</label>
+                                <Select size='small' sx={{ width: "100%" }} value={editAssetCat} onChange={handleSelectAssetCat}>
+                                    {assetCategories.map((cat) => (
+                                        <MenuItem value={cat._id}>{cat.asset_category}</MenuItem>
+                                    ))}
+                                </Select>
+                </TabPanel>
+            </TabContext>
+
+
         </div>
     );
 }
