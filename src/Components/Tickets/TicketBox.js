@@ -53,7 +53,7 @@ const TicketBox = (props) => {
                 }
 
             </div>
-            <div>
+            <div className="ticket-details">
                 <TicketDetails />
             </div>
             

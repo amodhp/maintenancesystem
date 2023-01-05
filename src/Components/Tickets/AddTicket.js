@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 const AddTicket = () => {
     const [open, setOpen] = React.useState(true);
+    const [message, setMessage] = React.useState("");
+    const [alert, setAlert] = React.useState(false);
     const accessToken = localStorage.getItem("token");
     // "subject":"DUMMY TICKET 4",
     // "description":"this is a test message for dummy ticket 4",
@@ -43,9 +45,23 @@ const AddTicket = () => {
                 "access-token": accessToken
             }
         }).then(res => {
+            setMessage(res.data.msg);
+            setAlert(true);
             console.log(res);
+            setTimeout(() => {
+                setAlert(false);
+            }, 3000);
+            setTimeout(() => {
+                navigate("/tickets");
+            }, 3000);
+
         }
         ).catch(err => {
+            setMessage(err.response.data.msg);
+            setAlert(true);
+            setTimeout(() => {
+                setAlert(false);
+            }, 3000);
             console.log(err);
         }
         );
@@ -102,7 +118,9 @@ const AddTicket = () => {
 
     return (
     <div className="add-ticket-background">
+         
         <Dialog open={open} >
+        {alert && <div className="add-ticket-alert">{message}</div>}
             <form className="add-ticket-form">
                 <Table>
                    <TableHead>

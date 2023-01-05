@@ -127,8 +127,7 @@ function AddUserBody(props) {
                                 <label>Phone: </label>
                             </TableCell>
                             <TableCell>
-
-                                <OutlinedInput placeholder="Phone" size="small"  value={phone} onChange={handlePhoneChange} />
+                               <OutlinedInput inputProps={{ maxLength: 10 }} placeholder="Phone" size="small"  value={phone} onChange={handlePhoneChange} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
