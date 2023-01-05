@@ -33,7 +33,7 @@ const Tickets = () => {
 
     return (
         <div className="tickets">
-            <TicketBox tickets={tickets} loading={loading}/>
+            <TicketBox tickets={tickets.reverse()} loading={loading}/>
             <Outlet/>
         </div>
     );
