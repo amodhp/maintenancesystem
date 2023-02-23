@@ -28,6 +28,7 @@ import "./tickets.css";
 
 const TicketBox = (props) => {
   const { tickets, loading } = props;
+  const { searchedTickets, setSearchedTickets } = useState();
   const { newtickets, setNewtickets } = useState([]);
   const [details, setDetails] = useState({});
   const [error, setError] = useState(null);
@@ -42,6 +43,21 @@ const TicketBox = (props) => {
   //     console.log(c)
   //   }, []);
 
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    searchedTickets = tickets.filter(
+      (ticket) =>
+        ticket.subject.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        ticket.description
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase()) ||
+        ticket.last_name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setSearchedTickets(searchedTickets);
+  };
+
+  useEffect(() => {}, [search]);
+
   return (
     <div className="ticket-box">
       <div className="ticket-list">
@@ -55,7 +71,8 @@ const TicketBox = (props) => {
               width: "100%",
             }}
             size="small"
-            onChange={(text) => setSearch(text)}
+            onChange={handleSearch}
+            value={search}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -93,145 +110,153 @@ const TicketBox = (props) => {
             </List> */}
           </div>
         ) : (
-          <div className="ticket-list-container">
-            <Table
-              sx={{
-                border: "1.5px solid black",
-                background: "#fff",
-              }}
+          <div style={{ marginTop: "20px", borderRadius: "20px" }}>
+            <TableContainer
+              sx={{ width: "100%", borderRadius: "20px" }}
+              component={Paper}
             >
-              <TableHead className="table-head">
-                <TableRow>
-                  <TableCell sx={{ fontColor: "#fff" }}>
-                    <span className="ticket-table-header">SUBJECT</span>
-                  </TableCell>
+              <Table
+                sx={{
+                  border: "1.5px solid black",
+                  background: "#fff",
+                }}
+              >
+                <TableHead
+                  className="table-head"
+                  style={{ borderRadius: "20px" }}
+                >
+                  <TableRow>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">SUBJECT</span>
+                    </TableCell>
 
-                  <TableCell sx={{ fontColor: "#fff" }}>
-                    <span className="ticket-table-header">CLIENT ID</span>
-                  </TableCell>
-                  <TableCell sx={{ fontColor: "#fff" }}>
-                    <span className="ticket-table-header">TICKET ID</span>
-                  </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">CLIENT ID</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">TICKET ID</span>
+                    </TableCell>
 
-                  <TableCell sx={{ fontColor: "#fff" }}>
-                    <span className="ticket-table-header">ASSET NAME</span>
-                  </TableCell>
-                  <TableCell sx={{ fontColor: "#fff" }}>
-                    <span className="ticket-table-header">STATUS</span>
-                  </TableCell>
-                  <TableCell sx={{ fontColor: "#fff" }}>
-                    <span className="ticket-table-header">DESCRIPTION</span>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loading ? (
-                  <>
-                    <TableRow>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton />
-                      </TableCell>
-                    </TableRow>
-                  </>
-                ) : (
-                  tickets.map((ticket) => (
-                    <TableRow key={ticket._id}>
-                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                        {/* {console.log("Ticket", ticket)} */}
-                        {ticket.subject}
-                      </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">ASSET NAME</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">STATUS</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">DESCRIPTION</span>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {loading ? (
+                    <>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  ) : (
+                    tickets.map((ticket) => (
+                      <TableRow key={ticket._id}>
+                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                          {/* {console.log("Ticket", ticket)} */}
 
-                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                        <div className="ticket-client-cell">
-                          <div>
-                            <Avatar
-                              sx={{ bgcolor: deepOrange[500] }}
-                              alt="Remy Sharp"
-                              src="/broken-image.jpg"
-                            />
-                          </div>
-                          <div>
-                            <div className="ticket-client-cell-name">
-                              {"Client Name"}
+                          {ticket.subject}
+                        </TableCell>
+
+                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                          <div className="ticket-client-cell">
+                            <div>
+                              <Avatar
+                                sx={{ bgcolor: deepOrange[500] }}
+                                alt="Remy Sharp"
+                                src="/broken-image.jpg"
+                              />
                             </div>
-                            <div className="ticket-client-cell-id">
-                              {ticket.client_id}
+                            <div>
+                              <div className="ticket-client-cell-name">
+                                {"Client Name"}
+                              </div>
+                              <div className="ticket-client-cell-id">
+                                {ticket.client_id}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </TableCell>
+                        </TableCell>
 
-                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                        {ticket._id}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                        {/* {console.log("Ticket", ticket)} */}
-                        {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
-                        {"Asset Name"}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                        {ticket.status == "close" ? (
-                          <Button variant="contained" color="error">
-                            Closed
-                          </Button>
-                        ) : (
-                          <Button variant="contained" color="success">
-                            Open
-                          </Button>
-                        )}
-                      </TableCell>
-                      <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
-                        {/* {console.log("Ticket", ticket)} */}
-                        {ticket.description}
-                      </TableCell>
-                      {/* <TableCell>
+                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                          {ticket._id}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                          {/* {console.log("Ticket", ticket)} */}
+                          {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
+                          {"Asset Name"}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                          {ticket.status == "close" ? (
+                            <Button variant="contained" color="error">
+                              Closed
+                            </Button>
+                          ) : (
+                            <Button variant="contained" color="success">
+                              Open
+                            </Button>
+                          )}
+                        </TableCell>
+                        <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                          {/* {console.log("Ticket", ticket)} */}
+                          {ticket.description}
+                        </TableCell>
+                        {/* <TableCell>
                         <Button
                           variant="contained"
                           size="small"
@@ -249,11 +274,12 @@ const TicketBox = (props) => {
                           Delete
                         </Button>
                       </TableCell> */}
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
             {/* <List>
               {tickets.map((ticket) => (
                 <ListItem

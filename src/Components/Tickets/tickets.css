@@ -40,13 +40,14 @@
     justify-content: center;
 }
 
-.ticket-list-container{
+/* .ticket-list-container{
     height: 100%;
     width: 100%;
-    /* overflow-y: scroll;
-    overflow-x: hidden; */
+    overflow-y: scroll;
+    overflow-x: hidden;
     padding: 0.5rem;
-}
+} */
+
 .ticket-list-item{
     width: 100% !important;
     max-height: 5rem !important;
@@ -103,16 +104,16 @@
 
 
 .ticket-table-header{
-    color: #a19e97;
-    font-weight:300;
-    font-size: 1.5rem;
+    color: #fff !important;
+    /* font-weight:300; */
+    font-size: 1rem;
   
 }
 
 .ticket-client-cell{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .ticket-client-cell-name{
@@ -125,6 +126,7 @@
 }
 
 .table-head{
-    background-color: black;
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
