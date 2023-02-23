@@ -3,11 +3,23 @@ import {
   CircularProgress,
   IconButton,
   InputAdornment,
+  Paper,
+  Button,
   List,
   ListItem,
   ListItemText,
   TextField,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Avatar,
 } from "@mui/material";
+import { deepOrange } from "@mui/material/colors";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
@@ -16,7 +28,7 @@ import "./tickets.css";
 
 const TicketBox = (props) => {
   const { tickets, loading } = props;
-  const {newtickets,setNewtickets}=useState([])
+  const { newtickets, setNewtickets } = useState([]);
   const [details, setDetails] = useState({});
   const [error, setError] = useState(null);
   const [ticket, setTicket] = useState({});
@@ -25,10 +37,10 @@ const TicketBox = (props) => {
   const [search, setSearch] = useState(null);
   const navigate = useNavigate();
 
-//   useEffect(() => {
-//     const c=tickets.map(ticket.subject.include(search))
-//     console.log(c)
-//   }, []);
+  //   useEffect(() => {
+  //     const c=tickets.map(ticket.subject.include(search))
+  //     console.log(c)
+  //   }, []);
 
   return (
     <div className="ticket-box">
@@ -62,7 +74,7 @@ const TicketBox = (props) => {
           </div>
         ) : search ? (
           <div className="ticket-list-container">
-            <List>
+            {/* <List>
               {tickets.map((newtickets) => (
                 
                 <ListItem
@@ -78,16 +90,177 @@ const TicketBox = (props) => {
                 </ListItem>
                 
               ))}
-            </List>
+            </List> */}
           </div>
         ) : (
           <div className="ticket-list-container">
-            <List>
+            <Table
+              sx={{
+                border: "1.5px solid black",
+                background: "#fff",
+              }}
+            >
+              <TableHead className="table-head">
+                <TableRow>
+                  <TableCell sx={{ fontColor: "#fff" }}>
+                    <span className="ticket-table-header">SUBJECT</span>
+                  </TableCell>
+
+                  <TableCell sx={{ fontColor: "#fff" }}>
+                    <span className="ticket-table-header">CLIENT ID</span>
+                  </TableCell>
+                  <TableCell sx={{ fontColor: "#fff" }}>
+                    <span className="ticket-table-header">TICKET ID</span>
+                  </TableCell>
+
+                  <TableCell sx={{ fontColor: "#fff" }}>
+                    <span className="ticket-table-header">ASSET NAME</span>
+                  </TableCell>
+                  <TableCell sx={{ fontColor: "#fff" }}>
+                    <span className="ticket-table-header">STATUS</span>
+                  </TableCell>
+                  <TableCell sx={{ fontColor: "#fff" }}>
+                    <span className="ticket-table-header">DESCRIPTION</span>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loading ? (
+                  <>
+                    <TableRow>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton />
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ) : (
+                  tickets.map((ticket) => (
+                    <TableRow key={ticket._id}>
+                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                        {/* {console.log("Ticket", ticket)} */}
+                        {ticket.subject}
+                      </TableCell>
+
+                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                        <div className="ticket-client-cell">
+                          <div>
+                            <Avatar
+                              sx={{ bgcolor: deepOrange[500] }}
+                              alt="Remy Sharp"
+                              src="/broken-image.jpg"
+                            />
+                          </div>
+                          <div>
+                            <div className="ticket-client-cell-name">
+                              {"Client Name"}
+                            </div>
+                            <div className="ticket-client-cell-id">
+                              {ticket.client_id}
+                            </div>
+                          </div>
+                        </div>
+                      </TableCell>
+
+                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                        {ticket._id}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                        {/* {console.log("Ticket", ticket)} */}
+                        {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
+                        {"Asset Name"}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
+                        {ticket.status == "close" ? (
+                          <Button variant="contained" color="error">
+                            Closed
+                          </Button>
+                        ) : (
+                          <Button variant="contained" color="success">
+                            Open
+                          </Button>
+                        )}
+                      </TableCell>
+                      <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                        {/* {console.log("Ticket", ticket)} */}
+                        {ticket.description}
+                      </TableCell>
+                      {/* <TableCell>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          sx={{ margin: "5px" }}
+                          onClick={() => handleAssetCatEdit(assetCategory._id)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          size="small"
+                          sx={{ margin: "5px" }}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell> */}
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+            {/* <List>
               {tickets.map((ticket) => (
                 <ListItem
                   key={ticket._id}
                   button
                   onClick={() => navigate(`/tickets/${ticket._id}`)}
+                  // onClick={()=>console.log(ticket._id)}
                   className="ticket-list-item"
                 >
                   <ListItemText
@@ -96,15 +269,18 @@ const TicketBox = (props) => {
                   />
                 </ListItem>
               ))}
-            </List>
+            </List> */}
           </div>
         )}
       </div>
-      <div>
+      {/* <div className="ticket-details">
         <TicketDetails />
-      </div>
+      </div> */}
     </div>
   );
 };
 
 export default TicketBox;
+{
+  /* .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) */
+}

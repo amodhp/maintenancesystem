@@ -13,6 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 import { Add } from "@mui/icons-material";
+import axios from "axios";
 import {
   MenuItem,
   OutlinedInput,
@@ -26,31 +27,57 @@ import {
 } from "@mui/material";
 
 function AddAssetBody(props) {
-  const { onClose, open, fetchUsers } = props;
-  // {
-  //     "asset_name":"Cooler",
-  //     "location":"Area 2",
-  //     "asset_category":"Hardware",
-  //     "asset_component_list":["filter","blinders"]
+  const {
+    onClose,
+    open,
+    fetchAssets,
+    submit,
+    assetName,
+    location,
+    assetCategory,
+    setAssetName,
+    setAssetCategory,
+    setLocation,
+  } = props;
 
-  // }
-  const [asset_name, setAssetName] = useState("");
-  const [location, setLocation] = useState("");
-  const [asset_category, setAssetCategory] = useState("");
-  const [asset_component_list, setAssetComponentList] = useState("");
-  const [asset_component_list_array, setAssetComponentListArray] = useState([]);
-  const [asset_component_list_string, setAssetComponentListString] =
-    useState("");
   const accessToken = localStorage.getItem("token");
   const handleClose = () => {
-    console.log(asset_name,location,asset_category);
     onClose();
   };
 
   const handleListItemClick = (value) => {
-
     onClose(value);
   };
+
+  const preDefinedLocations = [
+    {
+      value: "Area -1",
+      label: "Area -1",
+    },
+    {
+      value: "Area -2",
+      label: "Area -2",
+    },
+    {
+      value: "Area -3",
+      label: "Area -3",
+    },
+  ];
+
+  const preDefinedAssetCategory = [
+    {
+      value: "Electrical",
+      label: "Electrical",
+    },
+    {
+      value: "Hardware",
+      label: "Hardware",
+    },
+    {
+      value: "Furniture",
+      label: "Furniture",
+    },
+  ];
 
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -68,48 +95,6 @@ function AddAssetBody(props) {
           </TableHead>
 
           <TableBody>
-            {/* <TableRow>
-                            <TableCell>
-                                <label>Name: </label>
-                            </TableCell>
-                            <TableCell>
-                                <OutlinedInput placeholder="First Name" size="small" />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>
-                                <label>Role: </label>
-                            </TableCell>
-                            <TableCell>
-                                <Select onChange={handleRoleChange} variant="outlined" size="small" value={role}  sx={{width:"100%"}} displayEmpty>
-                                    <MenuItem value="">Choose Role</MenuItem>
-                                    {preDefinedRoles.map(option => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-
-                                </Select>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>
-                                <label>Phone: </label>
-                            </TableCell>
-                            <TableCell>
-
-                                <OutlinedInput placeholder="Phone" size="small" />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>
-
-                                <label>Email: </label>
-                            </TableCell>
-                            <TableCell>
-                                <OutlinedInput placeholder="Email" size="small" />
-                            </TableCell>
-                        </TableRow> */}
             <TableRow>
               <TableCell>
                 <label>Asset Name: </label>
@@ -127,11 +112,21 @@ function AddAssetBody(props) {
                 <label>Location: </label>
               </TableCell>
               <TableCell>
-                <OutlinedInput
-                  placeholder="Location"
-                  size="small"
+                <Select
                   onChange={(e) => setLocation(e.target.value)}
-                />
+                  variant="outlined"
+                  size="small"
+                  value={location}
+                  sx={{ width: "100%" }}
+                  displayEmpty
+                >
+                  <MenuItem value="">Choose Location</MenuItem>
+                  {preDefinedLocations.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -139,14 +134,24 @@ function AddAssetBody(props) {
                 <label>Asset Category: </label>
               </TableCell>
               <TableCell>
-                <OutlinedInput
-                  placeholder="Asset Category"
-                  size="small"
+                <Select
                   onChange={(e) => setAssetCategory(e.target.value)}
-                />
+                  variant="outlined"
+                  size="small"
+                  value={assetCategory}
+                  sx={{ width: "100%" }}
+                  displayEmpty
+                >
+                  <MenuItem value="">Choose Asset Category</MenuItem>
+                  {preDefinedAssetCategory.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
               </TableCell>
             </TableRow>
-            <TableRow>
+            {/* <TableRow>
               <TableCell>
                 <label>Asset Component List: </label>
               </TableCell>
@@ -157,8 +162,8 @@ function AddAssetBody(props) {
                   onChange={(e) => setAssetComponentList(e.target.value)}
                 />
               </TableCell>
-            </TableRow>
-            <TableRow>
+            </TableRow> */}
+            {/* <TableRow>
               <TableCell>
                 <label>Asset Component List Array: </label>
               </TableCell>
@@ -169,8 +174,8 @@ function AddAssetBody(props) {
                   onChange={(e) => setAssetComponentListArray(e.target.value)}
                 />
               </TableCell>
-            </TableRow>
-            <TableRow>
+            </TableRow> */}
+            {/* <TableRow>
               <TableCell>
                 <label>Asset Component List String: </label>
               </TableCell>
@@ -181,20 +186,33 @@ function AddAssetBody(props) {
                   onChange={(e) => setAssetComponentListString(e.target.value)}
                 />
               </TableCell>
-            </TableRow>
-            <TableRow>
+            </TableRow> */}
+            {/* <TableRow>
               <TableCell colSpan={2}>
-                <Button onClick={()=>handleClose()} variant="contained">Add Asset</Button>
+                <Button onClick={() => handleClose()} variant="contained">
+                  Add Asset
+                </Button>
               </TableCell>
-            </TableRow>
+            </TableRow> */}
           </TableBody>
         </Table>
 
-        {/* <div style={{textAlign: "center", paddingBottom:"20px", paddingTop:"10px"}}>
-            <Button variant="contained" sx={{backgroundColor: "#189ab4", width:"80%"}} color="primary" onClick={handleClose}>
-                Add
-            </Button>
-        </div> */}
+        <div
+          style={{
+            textAlign: "center",
+            paddingBottom: "20px",
+            paddingTop: "10px",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#189ab4", width: "80%" }}
+            color="primary"
+            onClick={submit}
+          >
+            Add
+          </Button>
+        </div>
       </form>
     </Dialog>
   );
@@ -206,9 +224,12 @@ AddAssetBody.propTypes = {
 };
 
 export default function AddAsset(props) {
-  const { fetchUsers } = props;
+  const { fetchAssets } = props;
   const [open, setOpen] = React.useState(false);
-
+  const [assetName, setAssetName] = useState("");
+  const [location, setLocation] = useState("");
+  const [assetCategory, setAssetCategory] = useState("");
+  const accessToken = localStorage.getItem("token");
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -217,12 +238,50 @@ export default function AddAsset(props) {
     setOpen(false);
   };
 
+  const AddAssetSubmit = () => {
+    console.log("aass");
+    axios({
+      method: "post",
+
+      url: `${process.env.REACT_APP_API}/admin/add_assets`,
+
+      data: {
+        // user_id: Math.floor(Math.random() * 1000000),
+        asset_name: assetName,
+        location: location,
+        asset_category: assetCategory,
+      },
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        setOpen(false);
+        fetchAssets();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <button onClick={handleClickOpen} className="add-button">
         Add Asset
       </button>
-      <AddAssetBody open={open} onClose={handleClose} fetchUsers={fetchUsers} />
+      <AddAssetBody
+        open={open}
+        onClose={handleClose}
+        fetchAssets={fetchAssets}
+        assetName={assetName}
+        location={location}
+        assetCategory={assetCategory}
+        setAssetName={setAssetName}
+        setLocation={setLocation}
+        setAssetCategory={setAssetCategory}
+        submit={AddAssetSubmit}
+      />
     </div>
   );
 }
