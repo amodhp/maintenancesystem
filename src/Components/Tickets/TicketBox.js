@@ -175,8 +175,8 @@ const TicketBox = (props) => {
                       </TableRow>
                     </>
                   ) : (
-                    tickets
-                      .filter(
+                    tickets.reverse().
+                      filter(
                         (ticket) =>
                           ticket.subject
                             .toLowerCase()
@@ -339,7 +339,7 @@ const TicketBox = (props) => {
                       </TableRow>
                     </>
                   ) : (
-                    tickets.map(
+                    tickets.reverse().map(
                       (ticket) => (
                         ((random = Math.floor(Math.random() * colors.length)),
                         (color = colors[random])),

@@ -34,19 +34,14 @@ const AddTicket = () => {
   const [floor, setFloor] = useState("");
   const [room, setRoom] = useState("");
   const [assetInRoom, setAssetInRoom] = useState();
-  const [assetInRoomId,setAssetInRoomId]=useState();
+  const [assetInRoomId, setAssetInRoomId] = useState();
   const [bool, setBool] = useState(false);
   const AddTicketSubmit = (e) => {
     e.preventDefault();
     const data = {
       subject: subject,
       description: description,
-      asset_name: asset_name,
-      location: {
-        unit_building: unitOrBuilding,
-        floor: floor,
-        room: room,
-      },
+      asset_id: assetInRoomId[0],
     };
     console.log(data);
 
@@ -104,7 +99,8 @@ const AddTicket = () => {
     setOpen(false);
     navigate(-1);
   };
-  var temp = [];
+  var temp = [];//for storing asset name
+  var tempID = [];//for storing asset id's
   const handleRoom = (event) => {
     // console.log(event.target.value)
     // const t=event.target.value
@@ -131,8 +127,11 @@ const AddTicket = () => {
                 console.log("This is what want to set", r.assets);
                 r.assets.map((e) => console.log("Fuck new", e.asset_name));
                 temp = r.assets.map((e) => e.asset_name);
+                tempID = r.assets.map((e) => e._id);
                 console.log("Final Final", temp);
+                console.log("Final Final ID", tempID);
                 setAssetInRoom(temp);
+                setAssetInRoomId(tempID);
                 return null;
               }
             });
@@ -354,9 +353,7 @@ const AddTicket = () => {
                         sx={{ width: "100px" }}
                       >
                         {[assetInRoom] == undefined ? (
-                      
-                              <MenuItem>{"No Assets"}</MenuItem>
-                          
+                          <MenuItem>{"No Assets"}</MenuItem>
                         ) : (
                           [assetInRoom].map(
                             (asset) => (
