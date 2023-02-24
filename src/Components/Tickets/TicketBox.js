@@ -18,6 +18,7 @@ import {
   TablePagination,
   TableRow,
   Avatar,
+  Typography,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import axios from "axios";
@@ -28,9 +29,6 @@ import "./tickets.css";
 
 const TicketBox = (props) => {
   const { tickets, loading } = props;
-  const { searchedTickets, setSearchedTickets } = useState();
-  const { newtickets, setNewtickets } = useState([]);
-  const [details, setDetails] = useState({});
   const [error, setError] = useState(null);
   const [ticket, setTicket] = useState({});
   const accessToken = localStorage.getItem("token");
@@ -38,51 +36,43 @@ const TicketBox = (props) => {
   const [search, setSearch] = useState(null);
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     const c=tickets.map(ticket.subject.include(search))
-  //     console.log(c)
-  //   }, []);
-
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-    searchedTickets = tickets.filter(
-      (ticket) =>
-        ticket.subject.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        ticket.description
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase()) ||
-        ticket.last_name.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setSearchedTickets(searchedTickets);
-  };
-
-  useEffect(() => {}, [search]);
+  const colors = ["blue", "green", "grey", "Orange", "brown"];
+  var random;
+  var color;
 
   return (
     <div className="ticket-box">
       <div className="ticket-list">
+        <Typography variant="h4" className="assetsHeader-title">
+          Tickets
+        </Typography>
         <div className="ticket-search">
-          <TextField
-            variant="outlined"
-            sx={{
-              backgroundColor: "white",
-              borderRadius: "10px",
-              border: "none",
-              width: "100%",
-            }}
-            size="small"
-            onChange={handleSearch}
-            value={search}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton>
-                    <Search />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <div className="search-asset-input">
+            <label style={{ fontSize: "1rem", fontWeight: "600" }}>
+              Search:
+            </label>
+            <TextField
+              variant="outlined"
+              sx={{
+                backgroundColor: "white",
+                borderRadius: "10px",
+                border: "none",
+                width: "100%",
+              }}
+              size="small"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton>
+                      <Search />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
         </div>
         {loading ? (
           <div className="ticket-loading">
@@ -90,24 +80,168 @@ const TicketBox = (props) => {
             <p>Loading...</p>
           </div>
         ) : search ? (
-          <div className="ticket-list-container">
-            {/* <List>
-              {tickets.map((newtickets) => (
-                
-                <ListItem
-                  key={ticket._id}
-                  button
-                  onClick={() => navigate(`/tickets/${ticket._id}`)}
-                  className="ticket-list-item"
+          <div style={{ marginTop: "20px", borderRadius: "20px" }}>
+            <TableContainer
+              sx={{ width: "100%", borderRadius: "20px" }}
+              component={Paper}
+            >
+              <Table
+                sx={{
+                  border: "1.5px solid black",
+                  background: "#fff",
+                }}
+              >
+                <TableHead
+                  className="table-head"
+                  style={{ borderRadius: "20px" }}
                 >
-                  <ListItemText
-                    primary={ticket.subject}
-                    secondary={ticket.subject}
-                  />
-                </ListItem>
-                
-              ))}
-            </List> */}
+                  <TableRow>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">SUBJECT</span>
+                    </TableCell>
+
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">CLIENT ID</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">TICKET ID</span>
+                    </TableCell>
+
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">ASSET NAME</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">STATUS</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">DESCRIPTION</span>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {loading ? (
+                    <>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                          <Skeleton />
+                          <Skeleton />
+                        </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
+                      </TableRow>
+                    </>
+                  ) : (
+                    tickets
+                      .filter(
+                        (ticket) =>
+                          ticket.subject
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                          ticket.description
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                      )
+                      .map((ticket) => (
+                        <TableRow key={ticket._id}>
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            {/* {console.log("Ticket", ticket)} */}
+
+                            {ticket.subject}
+                          </TableCell>
+
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            <div className="ticket-client-cell">
+                              <div>
+                                <Avatar
+                                  sx={{ bgcolor: deepOrange[100] }}
+                                  alt={ticket.subject[0]}
+                                  src="/broken-image.jpg"
+                                />
+                              </div>
+                              <div>
+                                <div className="ticket-client-cell-name">
+                                  {"Client Name"}
+                                </div>
+                                <div className="ticket-client-cell-id">
+                                  {ticket.client_id}
+                                </div>
+                              </div>
+                            </div>
+                          </TableCell>
+
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            {ticket._id}
+                          </TableCell>
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            {/* {console.log("Ticket", ticket)} */}
+                            {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
+                            {"Asset Name"}
+                          </TableCell>
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            {ticket.status == "close" ? (
+                              <Button variant="outlined" color="error">
+                                Closed
+                              </Button>
+                            ) : (
+                              <Button variant="outlined" color="success">
+                                Open
+                              </Button>
+                            )}
+                          </TableCell>
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            {/* {console.log("Ticket", ticket)} */}
+                            {ticket.description}
+                          </TableCell>
+                        </TableRow>
+                      ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         ) : (
           <div style={{ marginTop: "20px", borderRadius: "20px" }}>
@@ -205,58 +339,75 @@ const TicketBox = (props) => {
                       </TableRow>
                     </>
                   ) : (
-                    tickets.map((ticket) => (
-                      <TableRow key={ticket._id}>
-                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                          {/* {console.log("Ticket", ticket)} */}
+                    tickets.map(
+                      (ticket) => (
+                        ((random = Math.floor(Math.random() * colors.length)),
+                        (color = colors[random])),
+                        (
+                          <TableRow key={ticket._id}>
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              {/* {console.log("Ticket", ticket)} */}
 
-                          {ticket.subject}
-                        </TableCell>
+                              {ticket.subject}
+                            </TableCell>
 
-                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                          <div className="ticket-client-cell">
-                            <div>
-                              <Avatar
-                                sx={{ bgcolor: deepOrange[500] }}
-                                alt="Remy Sharp"
-                                src="/broken-image.jpg"
-                              />
-                            </div>
-                            <div>
-                              <div className="ticket-client-cell-name">
-                                {"Client Name"}
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              <div className="ticket-client-cell">
+                                <div>
+                                  {console.log(color)}
+                                  <Avatar
+                                    sx={{ bgcolor: color }}
+                                    alt={ticket.subject[0]}
+                                    src="/broken-image.jpg"
+                                  />
+                                </div>
+                                <div>
+                                  <div className="ticket-client-cell-name">
+                                    {"Client Name"}
+                                  </div>
+                                  <div className="ticket-client-cell-id">
+                                    {ticket.requestee_id}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="ticket-client-cell-id">
-                                {ticket.client_id}
-                              </div>
-                            </div>
-                          </div>
-                        </TableCell>
+                            </TableCell>
 
-                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                          {ticket._id}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                          {/* {console.log("Ticket", ticket)} */}
-                          {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
-                          {"Asset Name"}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "1.2rem", fontWeight: 200 }}>
-                          {ticket.status == "close" ? (
-                            <Button variant="contained" color="error">
-                              Closed
-                            </Button>
-                          ) : (
-                            <Button variant="contained" color="success">
-                              Open
-                            </Button>
-                          )}
-                        </TableCell>
-                        <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
-                          {/* {console.log("Ticket", ticket)} */}
-                          {ticket.description}
-                        </TableCell>
-                        {/* <TableCell>
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              {ticket._id}
+                            </TableCell>
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              {/* {console.log("Ticket", ticket)} */}
+                              {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
+                              {"Asset Name"}
+                            </TableCell>
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              {ticket.status == "close" ? (
+                                <Button variant="outlined" color="error">
+                                  Closed
+                                </Button>
+                              ) : (
+                                <Button variant="outlined" color="success">
+                                  Open
+                                </Button>
+                              )}
+                            </TableCell>
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              {/* {console.log("Ticket", ticket)} */}
+                              {ticket.description}
+                            </TableCell>
+                            {/* <TableCell>
                         <Button
                           variant="contained"
                           size="small"
@@ -274,39 +425,19 @@ const TicketBox = (props) => {
                           Delete
                         </Button>
                       </TableCell> */}
-                      </TableRow>
-                    ))
+                          </TableRow>
+                        )
+                      )
+                    )
                   )}
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* <List>
-              {tickets.map((ticket) => (
-                <ListItem
-                  key={ticket._id}
-                  button
-                  onClick={() => navigate(`/tickets/${ticket._id}`)}
-                  // onClick={()=>console.log(ticket._id)}
-                  className="ticket-list-item"
-                >
-                  <ListItemText
-                    primary={ticket.subject}
-                    secondary={ticket.subject}
-                  />
-                </ListItem>
-              ))}
-            </List> */}
           </div>
         )}
       </div>
-      {/* <div className="ticket-details">
-        <TicketDetails />
-      </div> */}
     </div>
   );
 };
 
 export default TicketBox;
-{
-  /* .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) */
-}

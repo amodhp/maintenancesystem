@@ -57,6 +57,7 @@ const Login = () => {
       navigate("/");
       
     }).catch(err => {
+      console.log(err)
       setError("Invalid username or password");
       setLoading(false);
     }

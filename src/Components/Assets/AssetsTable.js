@@ -13,7 +13,7 @@ const AssetsTable = (props) => {
                 <TableRow >
                     <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Name</span></TableCell>
                     <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Category</span></TableCell>
-                    <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Loaction</span></TableCell>
+                    <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Location</span></TableCell>
                     <TableCell sx={{fontSize: "1rem"}}><span className="asset-table-header">Action</span></TableCell>
                 </TableRow>
             </TableHead>

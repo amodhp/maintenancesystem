@@ -1,14 +1,17 @@
 .ticket-box{
-    background-color:#fff;
+    /* background-color:#CDD6D0; */
     height: 80%;
     width: 90%;
-    position: absolute;
+    position: absolute; 
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
+  
+    /* align-items: center;
     border-radius: 10px;
     /* padding: 0.5rem; */
+    
+ 
 
   
     
@@ -16,21 +19,22 @@
 
 .ticket-box .ticket-list{
     height: 100%;
-    width: 100%;
+    width: 90%;
     background-color: rgb(245, 245, 245);
     box-shadow: inset 0 0 10px #3b3b3b0c;
-    border-radius: 10px;
-    display: flex;
+
+ 
+    /* display: flex;
     flex-direction: column;
-    align-self: center;
+    align-self: center; */
     
 }
 .ticket-search{
-    position: relative;
-    width: 80%;
-    margin: 0 auto;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    /* position: relative; */
+    width: 60%;
+    /* margin: 0 auto; */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 .ticket-loading{
     display: flex;
@@ -108,6 +112,7 @@
     /* font-weight:300; */
     font-size: 1rem;
   
+  
 }
 
 .ticket-client-cell{
@@ -117,16 +122,16 @@
 }
 
 .ticket-client-cell-name{
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 200;
 }
 .ticket-client-cell-id{
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 400;
 }
 
 .table-head{
-    background-color: #000000 !important;
+    background-color: #262322!important;
     color: #ffffff !important;
 }
 

@@ -5,7 +5,7 @@ import TicketBox from '../Components/Tickets/TicketBox';
 
 
 const Tickets = () => {
- const [tickets, setTickets] = useState([]);
+    const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
@@ -14,12 +14,14 @@ const Tickets = () => {
     
     const fetchTickets = () => {
         setLoading(true);
-        axios.get(`${process.env.REACT_APP_API}/admin/ticket`, {
+        console.log(accessToken)
+        axios.get(`${process.env.REACT_APP_API}/admin/ticket`,  {
             headers: {
                 "access-token": accessToken
             }
         }).then(res => {
             setTickets(res.data.tickets);
+            console.log("Inside tickets function",tickets)
             setLoading(false);
         }).catch(err => {
             setError(err.message);
@@ -32,8 +34,8 @@ const Tickets = () => {
     }, []);
 
     return (
-        <div className="tickets">
-            <TicketBox tickets={tickets.reverse()} loading={loading}/>
+        <div className="ticket">
+            <TicketBox tickets={tickets} loading={loading}/>
             <Outlet/>
         </div>
     );
