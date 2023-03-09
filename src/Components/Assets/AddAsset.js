@@ -12,7 +12,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
-import { Add } from "@mui/icons-material";
+import {
+  Add,
+  CenterFocusStrong,
+  ConnectingAirportsOutlined,
+  FamilyRestroomOutlined,
+} from "@mui/icons-material";
 import axios from "axios";
 import {
   MenuItem,
@@ -24,7 +29,9 @@ import {
   TableHead,
   TableRow,
   TextField,
+  CircularProgress,
 } from "@mui/material";
+import Papa from "papaparse";
 
 function AddAssetBody(props) {
   const {
@@ -223,9 +230,186 @@ AddAssetBody.propTypes = {
   open: PropTypes.bool.isRequired,
 };
 
+function AddCSVBody(props) {
+  const { open, onClose, templates } = props;
+  const accessToken = localStorage.getItem("token");
+  const [file, setFile] = useState();
+  const [loading, setLoading] = useState(false);
+
+  //State to store table Column name
+  const [template, setTemplate] = useState("");
+
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+
+  //State to store the values
+  const [values, setValues] = useState([]);
+
+  const fileReader = new FileReader();
+  const handleClose = () => {
+    onClose();
+  };
+  const handleListItemClick = (value) => {
+    onClose(value);
+  };
+
+  const handleOnChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+  //validation csv
+  // const validation=()=>{
+  //   setLoading(true)
+  //   console.log(file)
+
+  //   // setTimeout(setLoading(false), 3000);
+
+  // }
+
+  const validation = (event) => {
+    // Passing file data (event.target.files[0]) to parse using Papa.parse
+    setLoading(true);
+    console.log("File Name", file);
+    console.log("Chosen Template", template);
+    const d1 = templates.filter((elem) => elem.template_name === template);
+    console.log(
+      "First Iteration inside validation ",
+      d1[0].schema_structure[0]
+    );
+
+    const schema = Object.keys(d1[0].schema_structure[0]);
+    console.log("Schema List", schema);
+
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: function (results) {
+        console.log("File Rows", results.data[0]);
+        const fileColumnList = Object.keys(results.data[0]);
+        console.log("File Column Names", fileColumnList);
+
+        {
+          if (JSON.stringify(schema) == JSON.stringify(fileColumnList)) {
+            setLoading(false);
+            setMessage("Uploading the CSV file");
+            setAlert(true);
+            console.log("Call Post");
+            setTimeout(() => {
+              setAlert(false);
+            }, 3000);
+          } else {
+            setLoading(false);
+            setMessage("Please ensure correct file or template chosen");
+            setAlert(true);
+            console.log("Please ensure correct file or template");
+            setTimeout(() => {
+              setAlert(false);
+            }, 3000);
+          }
+        }
+      },
+    });
+  };
+
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      {alert && <div className="add-ticket-alert">{message}</div>}
+      <form className="add-user-form">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{ fontWeight: "600", fontSize: "1.5rem" }}
+                colSpan={2}
+              >
+                Upload Asset CSV
+              </TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            <TableRow>
+              <TableCell>
+                <label>Template: </label>
+              </TableCell>
+              <TableCell>
+                <Select
+                  onChange={(e) => setTemplate(e.target.value)}
+                  variant="outlined"
+                  size="small"
+                  value={template}
+                  sx={{ width: "100%" }}
+                  displayEmpty
+                >
+                  <MenuItem value="">Choose Template</MenuItem>
+                  {templates.map((option) => (
+                    <MenuItem key={option._id} value={option.template_name}>
+                      {option.template_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              {loading ? (
+                <>
+                  <TableCell>
+                    <label>Please wait ...: </label>
+                  </TableCell>
+                  <TableCell>
+                    <CircularProgress />
+                  </TableCell>
+                </>
+              ) : (
+                <>
+                  <TableCell>
+                    <label>CSV: </label>
+                  </TableCell>
+
+                  <TableCell>
+                    <input
+                      className="custom-file-upload"
+                      type={"file"}
+                      id={"csvFileInput"}
+                      accept={".csv"}
+                      onChange={handleOnChange}
+                    />
+                  </TableCell>
+                </>
+              )}
+            </TableRow>
+          </TableBody>
+        </Table>
+
+        <div
+          style={{
+            textAlign: "center",
+            paddingBottom: "20px",
+            paddingTop: "10px",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#189ab4", width: "80%" }}
+            color="primary"
+            onClick={validation}
+          >
+            Upload
+          </Button>
+        </div>
+      </form>
+    </Dialog>
+  );
+}
+
+AddCSVBody.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
+
 export default function AddAsset(props) {
-  const { fetchAssets } = props;
+  const { fetchAssets, templates } = props;
   const [open, setOpen] = React.useState(false);
+  const [csvOpen, setCsvOpen] = useState(false);
   const [assetName, setAssetName] = useState("");
   const [location, setLocation] = useState("");
   const [assetCategory, setAssetCategory] = useState("");
@@ -237,9 +421,16 @@ export default function AddAsset(props) {
   const handleClose = (value) => {
     setOpen(false);
   };
+  //handle fucntion for csv button
+  const handleCSVClickOpen = () => {
+    setCsvOpen(true);
+  };
+
+  const handleCSVClose = (value) => {
+    setCsvOpen(false);
+  };
 
   const AddAssetSubmit = () => {
-    console.log("aass");
     axios({
       method: "post",
 
@@ -281,6 +472,19 @@ export default function AddAsset(props) {
         setLocation={setLocation}
         setAssetCategory={setAssetCategory}
         submit={AddAssetSubmit}
+      />
+
+      <button
+        onClick={handleCSVClickOpen}
+        className="add-button"
+        style={{ marginLeft: 10 }}
+      >
+        Upload CSV
+      </button>
+      <AddCSVBody
+        open={csvOpen}
+        onClose={handleCSVClose}
+        templates={templates}
       />
     </div>
   );

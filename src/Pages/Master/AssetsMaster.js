@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   MenuItem,
   Paper,
   Select,
@@ -71,7 +72,7 @@ const AssetsMaster = () => {
   return (
     <>
       {assetCategories.length==0 ? (
-        "Hello world"
+        <CircularProgress/>
       ) : ( <div style={{ width: "100%" }}>
           <h1 style={{ textAlign: "center" }}>Assets Master</h1>
           <TableContainer

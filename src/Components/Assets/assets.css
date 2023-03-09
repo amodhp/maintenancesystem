@@ -49,3 +49,12 @@
     border-radius: 0.5rem !important;
     border: 3px solid #3c95b3 !important;
 }
+
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+ 
+}
