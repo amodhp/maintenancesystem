@@ -21,6 +21,8 @@ import TabList from "@mui/lab/TabList";
 import React, { useState } from "react";
 import axios from "axios";
 
+import fileSaver from "file-saver";
+
 const AddAssetMaster = (props) => {
   const {
     assetCategories,
@@ -74,7 +76,29 @@ const AddAssetMaster = (props) => {
         },
       })
       .then((res) => {
+        //function to download the csv file
+        const downloadFile = ({ data, fileName, fileType }) => {
+          const blob = new Blob([data], { type: fileType });
+
+          const a = document.createElement("a");
+          a.download = fileName;
+          a.href = window.URL.createObjectURL(blob);
+          const clickEvt = new MouseEvent("click", {
+            view: window,
+            bubbles: true,
+            cancelable: true,
+          });
+          a.dispatchEvent(clickEvt);
+          a.remove();
+        };
         console.log("Push template asset master", res);
+        //for extracting the column names
+        let headers = templateAttributes.map((elem) => elem.attribute);
+        downloadFile({
+          data: headers,
+          fileName: templateName,
+          fileType: "text/csv",
+        });
       })
       .catch((err) => {
         console.log(err);

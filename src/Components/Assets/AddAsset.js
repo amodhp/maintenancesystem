@@ -285,6 +285,7 @@ function AddCSVBody(props) {
       complete: function (results) {
         console.log("File Rows", results.data[0]);
         const fileColumnList = Object.keys(results.data[0]);
+        console.log();
         console.log("File Column Names", fileColumnList);
 
         {
@@ -296,6 +297,32 @@ function AddCSVBody(props) {
             setTimeout(() => {
               setAlert(false);
             }, 3000);
+            let formData = new FormData();
+            formData.append("file", file);
+            formData.append("template_name", template);
+            console.log("File inside post", file);
+            console.log("Form Data inside post", formData);
+            axios
+              .post(
+                `${process.env.REACT_APP_API}/master/upload_csv`,
+                formData,
+                {
+                  headers: {
+                    "access-token": accessToken,
+                    "Content-Type": "multipart/form-data",
+                  },
+                }
+              )
+              .then((res) => {
+                console.log(res);
+              })
+
+              .catch((err) => {
+                console.log(err);
+              });
+            setTimeout(() => {
+              onClose();
+            }, 3000);
           } else {
             setLoading(false);
             setMessage("Please ensure correct file or template chosen");
@@ -303,6 +330,9 @@ function AddCSVBody(props) {
             console.log("Please ensure correct file or template");
             setTimeout(() => {
               setAlert(false);
+            }, 3000);
+            setTimeout(() => {
+              onClose();
             }, 3000);
           }
         }

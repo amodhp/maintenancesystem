@@ -35,10 +35,12 @@ function AddUserBody(props) {
     fetchUsers,
     name,
     role,
+    skill,
     phone,
     email,
     setName,
     setRole,
+    setSkill,
     setPhone,
     setEmail,
     submit,
@@ -57,6 +59,10 @@ function AddUserBody(props) {
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
+  };
+
+  const handleSkillChange = (e) => {
+    setSkill(e.target.value);
   };
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -102,6 +108,28 @@ function AddUserBody(props) {
     },
   ];
 
+  const preDefinedSkills = [
+    {
+      value: "Electrical I",
+      label: "Electrical I",
+    },
+    {
+      value: "Electrical II",
+      label: "Electrical II",
+    },
+    {
+      value: "Hardware I",
+      label: "Hardware I",
+    },
+    {
+      value: "Hardware II",
+      label: "Hardware II",
+    },
+    {
+      value: "Furniture",
+      label: "Furniture",
+    },
+  ];
   return (
     <Dialog onClose={handleClose} open={open}>
       <form className="add-user-form">
@@ -166,6 +194,30 @@ function AddUserBody(props) {
                 </Select>
               </TableCell>
             </TableRow>
+            {role == "technician-external" || role == "technician-internal" ? (
+              <TableRow>
+                <TableCell>
+                  <label>Skill: </label>
+                </TableCell>
+                <TableCell>
+                  <Select
+                    onChange={handleSkillChange}
+                    variant="outlined"
+                    size="small"
+                    value={skill}
+                    sx={{ width: "100%" }}
+                    displayEmpty
+                  >
+                    <MenuItem value="">Choose Skill</MenuItem>
+                    {preDefinedSkills.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </TableCell>
+              </TableRow>
+            ) : null}
             <TableRow>
               <TableCell>
                 <label>Phone: </label>
@@ -230,6 +282,7 @@ export default function AddUser(props) {
   const [role, setRole] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [skill, setSkill] = useState("");
 
   const accessToken = localStorage.getItem("token");
 
@@ -291,11 +344,13 @@ export default function AddUser(props) {
           username={username}
           name={name}
           role={role}
+          skill={skill}
           phone={phone}
           email={email}
           setUsername={setUsername}
           setName={setName}
           setRole={setRole}
+          setSkill={setSkill}
           setPhone={setPhone}
           setEmail={setEmail}
           submit={AddUserSubmit}

@@ -40,8 +40,8 @@ const MangementReport = () => {
     })
       .then((response) => {
         const dirtyFileName = response.headers["content-disposition"];
-        const regex =
-          /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
+        // const regex =
+        //   /filename[^;=\n]*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/;
         var fileName = dirtyFileName
 
         var blob = new Blob([response.data], {
