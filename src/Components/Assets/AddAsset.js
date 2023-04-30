@@ -283,7 +283,7 @@ function AddCSVBody(props) {
       header: true,
       skipEmptyLines: true,
       complete: function (results) {
-        console.log("File Rows", results.data[0]);
+        console.log("File Row", results.data[0]);
         const fileColumnList = Object.keys(results.data[0]);
         console.log();
         console.log("File Column Names", fileColumnList);
