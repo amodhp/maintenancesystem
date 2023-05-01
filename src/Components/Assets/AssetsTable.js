@@ -36,6 +36,38 @@ const PredictionBox = (props) => {
     onClose();
   };
 
+  const breakdownRate = {
+    mouse: "34.1",
+    "wood cutting machine": "18.7",
+    "wood sanding machine": "24.5",
+    "furniture sanding machine": "8.3",
+    "800vpr-3": "16.2",
+  };
+  const maintenanceHistory = {
+    mouse: [
+      "Maintained by Selec Admin , 10 Feb, 2023",
+      "Maintained by user234 , 17 March , 2023",
+    ],
+    "wood cutting machine": [
+      "Maintained by NewWork, 10 Feb, 2023",
+      "Maintained by Newtech , 17 Feb , 2023",
+      "Maintained by kh12 , 6 March , 2023",
+      "Maintained by workerexternal , 13 March , 2023",
+    ],
+    "furniture sanding machine": [
+      "Maintained by Selec Admin , 10 Feb, 2023",
+      "Maintained by user234 , 17 March , 2023",
+      "Maintained by rtech , 27 May , 2023",
+    ],
+    "800vpr-3": [
+      "Maintained by Selec Admin , 10 Feb, 2023",
+      "Maintained by user234 , 17 March , 2023",
+      "Maintained by selecreq , 19 March , 2023",
+      "Maintained by Abctech , 15 April , 2023",
+      "Maintained by tech22 , 17 April , 2023",
+      "Maintained by user33 , 27 March , 2023",
+    ],
+  };
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{asset_name}</DialogTitle>
@@ -45,29 +77,22 @@ const PredictionBox = (props) => {
           of of its maintenance history.
         </DialogContentText>
         <Typography>Maintenance History</Typography>
-
         <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InventoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Maintained by Selec Admin , 10 Feb, 2023" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InventoryIcon />
-              </ListItemIcon>
-              <ListItemText primary="Maintained by user234 , 17 March , 2023" />
-            </ListItemButton>
-          </ListItem>
+        
+          {maintenanceHistory[asset_name].map((text) => (
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InventoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </DialogContent>
       <DialogContent>
-        Breakdown Rate : {Math.round(Math.random() * 40)}.
-        {Math.round(Math.random() * 10)}%
+        Breakdown Rate : {breakdownRate[asset_name]}%
       </DialogContent>
 
       <DialogActions>
@@ -93,7 +118,7 @@ const AssetsTable = (props) => {
   } = props;
 
   const [open, setOpen] = React.useState(false);
-  const [prediction_asset_name, setPrediction_asset_name] = useState("");
+  const [prediction_asset_name, setPrediction_asset_name] = useState("mouse");
   const handleClickOpen = (name) => {
     setPrediction_asset_name(name);
     setOpen(true);
