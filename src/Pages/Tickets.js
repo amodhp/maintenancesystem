@@ -15,7 +15,7 @@ const Tickets = () => {
     setLoading(true);
     console.log(accessToken);
     axios
-      .get(`${process.env.REACT_APP_API}/admin/ticket?page=6`, {
+      .get(`${process.env.REACT_APP_API}/admin/ticket`, {
         headers: {
           "access-token": accessToken,
         },

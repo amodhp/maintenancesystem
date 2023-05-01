@@ -23,9 +23,12 @@ import {
   ListItemText,
 } from "@mui/material";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import { Edit } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { red } from "@mui/material/colors";
+import { ConnectingAirportsOutlined, Edit } from "@mui/icons-material";
 import PropTypes from "prop-types";
-
+import axios from "axios";
+const accessToken = localStorage.getItem("token");
 const PredictionBox = (props) => {
   const { onClose, open, asset_name } = props;
   const { predict, setPredict } = useState(false);
@@ -62,7 +65,10 @@ const PredictionBox = (props) => {
           </ListItem>
         </List>
       </DialogContent>
-      <DialogContent>Breakdown Rate : {Math.round(Math.random()*40)}.{Math.round(Math.random()*10)}%</DialogContent>
+      <DialogContent>
+        Breakdown Rate : {Math.round(Math.random() * 40)}.
+        {Math.round(Math.random() * 10)}%
+      </DialogContent>
 
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
@@ -92,7 +98,21 @@ const AssetsTable = (props) => {
     setPrediction_asset_name(name);
     setOpen(true);
   };
-  const setPredictionName = () => {};
+  const deleteAsset = (id) => {
+    axios({
+      method: "delete",
+      url: `${process.env.REACT_APP_API}/admin/delete_asset/${id}`,
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleClose = (value) => {
     setOpen(false);
   };
@@ -143,9 +163,10 @@ const AssetsTable = (props) => {
                       : "location"}
                   </TableCell>
                   <TableCell>
-                    <Button>
-                      <Edit style={{ color: "black" }} />
-                    </Button>
+                    <DeleteIcon
+                      sx={{ color: red[500] }}
+                      onClick={() => deleteAsset(asset._id)}
+                    />
                   </TableCell>
                   <TableCell>
                     <Button

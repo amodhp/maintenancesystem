@@ -13,7 +13,7 @@ const Assets = () => {
   const fetchAssets = () => {
     setLoading(true);
     axios
-      .get(`${process.env.REACT_APP_API}/admin/assets?page=3`, {
+      .get(`${process.env.REACT_APP_API}/admin/assets?page=1`, {
         headers: {
           "access-token": accessToken,
         },

@@ -21,6 +21,8 @@ import {
   Typography,
 } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { red } from "@mui/material/colors";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
@@ -31,15 +33,32 @@ const TicketBox = (props) => {
   const { tickets, loading } = props;
   const [error, setError] = useState(null);
   const [ticket, setTicket] = useState({});
-  const accessToken = localStorage.getItem("token");
+
   const params = useParams();
   const [search, setSearch] = useState(null);
   const navigate = useNavigate();
-
+  const accessToken = localStorage.getItem("token");
   const colors = ["blue", "green", "grey", "Orange", "brown"];
   var random;
   var color;
 
+  const deleteTicket = (ticketid) => {
+    console.log("Ticket id", ticketid, accessToken);
+
+    axios({
+      method: "delete",
+      url: `${process.env.REACT_APP_API}/admin/ticket/${ticketid}`,
+      headers: {
+        "access-token": `${accessToken}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="ticket-box">
       <div className="ticket-list">
@@ -116,6 +135,9 @@ const TicketBox = (props) => {
                     <TableCell sx={{ fontColor: "#fff" }}>
                       <span className="ticket-table-header">DESCRIPTION</span>
                     </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">ACTION</span>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -172,11 +194,15 @@ const TicketBox = (props) => {
                         <TableCell>
                           <Skeleton />
                         </TableCell>
+                        <TableCell>
+                          <Skeleton />
+                        </TableCell>
                       </TableRow>
                     </>
                   ) : (
-                    tickets.reverse().
-                      filter(
+                    tickets
+                      .reverse()
+                      .filter(
                         (ticket) =>
                           ticket.subject
                             .toLowerCase()
@@ -219,7 +245,6 @@ const TicketBox = (props) => {
                           <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
                             {/* {console.log("Ticket", ticket)} */}
                             {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
-                          
                           </TableCell>
                           <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
                             {ticket.status == "close" ? (
@@ -235,6 +260,12 @@ const TicketBox = (props) => {
                           <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
                             {/* {console.log("Ticket", ticket)} */}
                             {ticket.description}
+                          </TableCell>
+                          <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
+                            <DeleteIcon
+                              sx={{ color: red[500] }}
+                              onClick={() => deleteTicket(ticket._id)}
+                            />
                           </TableCell>
                         </TableRow>
                       ))
@@ -279,6 +310,9 @@ const TicketBox = (props) => {
                     </TableCell>
                     <TableCell sx={{ fontColor: "#fff" }}>
                       <span className="ticket-table-header">DESCRIPTION</span>
+                    </TableCell>
+                    <TableCell sx={{ fontColor: "#fff" }}>
+                      <span className="ticket-table-header">ACTION</span>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -406,6 +440,14 @@ const TicketBox = (props) => {
                             >
                               {/* {console.log("Ticket", ticket)} */}
                               {ticket.description}
+                            </TableCell>
+                            <TableCell
+                              sx={{ fontSize: "1rem", fontWeight: 200 }}
+                            >
+                              <DeleteIcon
+                                sx={{ color: red[500] }}
+                                onClick={() => deleteTicket(ticket._id)}
+                              />
                             </TableCell>
                             {/* <TableCell>
                         <Button

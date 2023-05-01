@@ -44,7 +44,7 @@ const AddTicket = () => {
       asset_id: assetInRoomId[0],
     };
     console.log(data);
-
+   
     axios
       .post(`${process.env.REACT_APP_API}/admin/add_ticket`, data, {
         headers: {

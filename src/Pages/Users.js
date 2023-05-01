@@ -14,7 +14,7 @@ const Users = () => {
     
    const fetchUsers = () => {
     setLoading(true);
-    axios.get(`${process.env.REACT_APP_API}/admin?page=3`, {
+    axios.get(`${process.env.REACT_APP_API}/admin`, {
         headers: {
             "access-token": accessToken
         }
