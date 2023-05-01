@@ -219,7 +219,7 @@ const TicketBox = (props) => {
                           <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
                             {/* {console.log("Ticket", ticket)} */}
                             {/* {ticket.asset_name["asset_name"] === undefined? 'None': ticket.asset_name["asset_name"]} */}
-                            {"Asset Name"}
+                          
                           </TableCell>
                           <TableCell sx={{ fontSize: "1rem", fontWeight: 200 }}>
                             {ticket.status == "close" ? (

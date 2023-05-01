@@ -17,7 +17,7 @@ const TicketDetails = (props) => {
 
   const getTicket = () => {
     axios
-      .get(`${process.env.REACT_APP_API}/admin/ticket/${params.id}`, {
+      .get(`${process.env.REACT_APP_API}/admin/ticket?page=6`, {
         headers: {
           "access-token": `${accessToken}`,
         },
